@@ -1,0 +1,59 @@
+\usepackage{graphicx} % Required for inserting images
+\usepackage{sidecap}
+\usepackage{wrapfig,lipsum}
+\usepackage[utf8]{inputenc} %lettere accentate da tastiera 
+\usepackage[T1]{fontenc} % higher quality font encoding
+%load the font and set it to default
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\numberwithin{equation}{section}
+\usepackage[english,italian]{babel}
+\usepackage{url}
+\usepackage{geometry}
+\geometry{a4paper,top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,%
+	heightrounded,bindingoffset=5mm}
+\usepackage[x11names]{xcolor}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems}
+\usepackage{physics}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=pink,
+	filecolor=magenta,      
+	urlcolor=blue,
+	pdftitle={Analisi II},
+	pdfpagemode=FullScreen,
+}
+\usepackage{enumitem}
+\usepackage[toc,page]{appendix}
+\newtheorem{teorema}{Teorema}[subsection]
+
+\theoremstyle{definition}
+\newtheorem{definizione}{Definizione}[section]
+
+\newtheorem*{proprieta}{Proprietà}
+\newtheorem{corollario}{Corollario}[teorema]
+\newtheorem*{formula}{Formula}
+\newtheorem{prop}{Proposizione}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtcbtheorem[number within=subsection]{teo}{Teorema}{colback=LightCyan1!40 ,colframe=RoyalBlue1!100,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
+\newtcbtheorem[number within=section]{teo1}{}{colback=black!5 ,colframe=Burlywood4!80 }{thm}
+
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\w}{\mathbb{W}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rn}{\R^n}
+\newcommand{\la}{\lambda}
+\newcommand{\on}{^{\perp}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\fn}{f: A\subseteq \Rn \rightarrow \R}
+\newcommand{\fnn}{f: A\subseteq \Rn \rightarrow \Rn}
+\newcommand{\fnm}{f: A\subseteq \Rn \rightarrow \R^m}
+\renewcommand{\labelitemi}{$\star$}
+\renewcommand{\arraystretch}{1.5} % Aumenta l'altezza delle righe
