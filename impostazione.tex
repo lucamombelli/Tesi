@@ -26,6 +26,8 @@
 }
 \usepackage{enumitem}
 \usepackage[toc,page]{appendix}
+\usepackage{biblatex}
+
 \newtheorem{teorema}{Teorema}[subsection]
 
 \theoremstyle{definition}
@@ -35,8 +37,9 @@
 \newtheorem{corollario}{Corollario}[teorema]
 \newtheorem*{formula}{Formula}
 \newtheorem{prop}{Proposizione}[section]
+\newtheorem{es}{Esempio}[section]
 \newtheorem{lemma}{Lemma}[section]
-\newtcbtheorem[number within=subsection]{teo}{Teorema}{colback=LightCyan1!40 ,colframe=RoyalBlue1!100,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
+\newtcbtheorem[number within=section]{teo}{Teorema}{colback=LightCyan1!40 ,colframe=RoyalBlue1!100,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
 \newtcbtheorem[number within=section]{teo1}{}{colback=black!5 ,colframe=Burlywood4!80 }{thm}
 
 
@@ -47,7 +50,6 @@
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\w}{\mathbb{W}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\Rn}{\R^n}
 \newcommand{\la}{\lambda}
 \newcommand{\on}{^{\perp}}
 \newcommand{\A}{\mathbb{A}}

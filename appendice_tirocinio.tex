@@ -1,0 +1,88 @@
+%
+
+\section{Richiami di Topologia}
+\begin{definizione}[Spazio topologico] Sia X un insieme , una \textit{topoogia} su X , è    una famiglia $\tau$ di sottoinsiemi di X (i suoi elementi sono gli aperti di X ) che soddisfa le seguenti condizioni. 
+	\begin{itemize}
+		\item $\emptyset \ e \ X \in\tau$
+		\item Unione arbitraria di aperti è un sottoinsieme aperto (se $A_{\lambda} \in \tau$ per ogni $\lambda \in \Lambda$ , allora $\bigcup_{\lambda \in \Lambda} A_{\lambda} \in \tau$)
+		\item Intersezione finita di  aperti è un sottoinsieme aperto  (Se $A_1 , \dots , A_m \in \tau $ allora $A_1 \cap \dots \cap A_m \in \tau$0-)
+	\end{itemize}
+	Un insieme dotato di una topologia viene detto \textbf{spazio topologico}
+\end{definizione}
+\begin{es}
+	Su ogni insieme X , $\tau = \{\emptyset , X\}$ è una topologia detta banale od indiscreta. \\
+	Sull'insieme $\R$ 
+	$$\tau_i = \{\emptyset , \R\} \cup \{\ ]a , + \infty [ \ \}$$
+	è una topologia , topologia inferiore , similmente 
+		$$\tau_{\sigma} = \{\emptyset , \R\} \cup \{\ ]-\infty  , a [\  \}$$ e1 la topologia superiore di $\R$
+\end{es}
+Una descrizione esplicita di tutti gli aperti di uno spazio topologico e1 impossibile , la topologia viene in genere descritta assegnando una base per essa 
+\begin{definizione}	
+	Sia $\tau$ una topologia su insieme X . una sottofamiglia (un insieme ) $B \subset \tau$ si dice una base di $\tau$ se ogni aperto $A \in \tau$ può essere scritt ocome unione di elementi d iB 	
+	\end{definizione}
+	\begin{teorema}
+		Sia X un insieme  e $\mathcal{B} \subset P(X)$ una famiglia di suoi sottoinsiemi . Allora esiste una topologia su X di cui $\mathcal{B}$ è una base se e soltanto se sono soddisfatte le seguenti due condizioni 
+		\begin{itemize}
+			\item $X = \cup \{B \ |\  B \in \mathcal{B} \}$
+			\item Per ogni coppia $A,B \in \mathcal{B}$ e per ogni punto $x \in A \cap B $ esiste $C \in \mathcal{B}$ tale che $x \in X \subset A \cup B$
+		\end{itemize}
+			\end{teorema}
+		\subsection{Parte interna , chiusura ed intorni }
+		\begin{definizione}
+			Sia X uno spazio topologico e $B \subseteq X $. Si denota con 
+			\begin{itemize}
+\item $B^0$ l'unione di tutti gli aperti contenuti in B 
+\item $\overline{B}$ l'intersezione di tutti i chiusi contenenti in B 
+\item $\partial B = \overline{B} - B^0$
+			\end{itemize}
+			L'insieme $B^0$ viene detto parte interna di B ed è il più gtande aperto contenuto in B \\
+			L'insieme $\overline{B}$ è il più piccolo chiuso contente B e viene detto chiusura di B \\
+			Il sottoinsieme $\partial B $ è l'intersezione dei due chiusi $\overline{B}$ e $X - B^0$ e viene detto \textbf{frontiera} di B \\
+		Osserviamo che un sottoinsieme B è aperto se e solo se $B=B^0$ e chiuse se $B= \overline{B}$
+		\end{definizione}
+		
+\begin{definizione}
+	Sia X uno spazio topologico e $x \in X$. Un sottoinsieme $U \subset X$ si dice \textit{intorno di x} se x è un punto interno di U , cioè se esiste un aperto V tale che $x\in V$ e $V \subset U $
+\end{definizione}
+Indichiamo con $\mathcal{I}(x) $ la famiglia di tutti gli intorni di x . per definizione se  A è un sottoinsieme di uno spazio topologico , allora $A^0 = \{ x \in A | A \in \mathcal{I}(x)\} $
+\begin{definizione}
+	Sia x un punto di uno spazio topologico X. Un sottofamiglia $ \mathcal{J}\subset \mathcal{I}(x)$ si dice \textit{base locale} oppure un sistema fondamentale di intorni di x , se per ogni $U \in \mathcal{I}(x)$ esiste $A \in \mathcal{J} $ tale che $A \subset U $
+\end{definizione}
+\begin{es}
+	Sia $U \in \mathcal{I}(x)$ un intorno fissato . Allora tutti gli intorni di x contenuti in U formano un sistema fondamentale di intorni di x 
+\end{es}
+\subsection{Spazi Metrici}
+\begin{definizione}
+	Una distanza si di un insieme X è un 'applicazione $d: X \times X \rightarrow \R$ che soddisfa le seguenti proprietà : 
+	\begin{enumerate}
+		\item $d(x,y) \geq 0 $ per ogni $x,y \in X$ e vale $d(x,y)=0$ se e solo se x=y 
+		\item $d(x,y)=d(y,x)$ per ogni $x,y \in X$ 
+		\item $d(x,y) \leq d(x,z)+d(z,y) $ per ogni $x,y,z \in x$ (Disuguaglianza triangolare)
+	\end{enumerate}
+\end{definizione}
+	\begin{es}
+		Su un qualsiasi insieme X , la funzione 
+		$$d: X \times X \rightarrow \R  \ \ \ d(x,y)= \begin{cases}
+			0 \ \ \ x = y \\
+			1 \ \ \ x \neq y 
+		\end{cases}$$
+		è una distanza 
+	\end{es}
+	\begin{definizione}
+	Uno \textbf{spazio metrico} è una coppia $(X,d)$ , dove X è un insieme e d è una distanza su X 
+	\end{definizione}
+	\begin{definizione}
+		Sia (X,d) uno spazio metrico. Il sottoinsieme 
+		$$B(x,r) = \{y \in X | d(x,y)<r\}$$ viene detto palla paerta di centro x e raggio r 
+	\end{definizione}
+	\begin{definizione}[Topologia indotta da una distanza]Sia (X,d) uno spazio metrico. Nella topologia su X indotta dalla distanza d , un sottoinsieme $A \subset X$ è aperto se per ogni $x \in A $ esiste r > 0 tale che $B(x,r) \subset A $
+	\end{definizione}
+\begin{definizione}
+	Siano $(X, d ) \ e \ (Y , \rho)$ due spazi metrici , sia f una funzione $f : X \rightarrow Y$ . f si dice Liptschiziana se esiste una costante $l \geq 0 $ tale che sia 
+1	$$\rho(f(x),f(y)) \leq l \  d(x,y) \ \ \ \ \forall x , y \in X$$
+\end{definizione}
+\subsection{Ricoprimenti}
+\begin{definizione}
+	Un \textbf{ricoprimento} di un insieme X è una famiglia $\mathcal{A}$ di sottoinsieme tali che $X = \cup \{A \ | \ A \in \mathcal{A}\}$. diremo che il ricoprimento èa finito se $\mathcal{A}$ è una famiglia finita : numerabile se $\mathcal{A}$ è una famiglia numerabile . \\
+	Se $\mathcal{A} \ e \ \mathcal{B}$ sono ricoprimento di X se $\mathcal{A} \subset \mathcal{B}$ , allora dire che $\mathcal{A}$ è un \textbf{sottoricoprimento } di $\mathcal{B}$
+  \end{definizione}
