@@ -9,64 +9,10 @@
 	\maketitle
 	\tableofcontents
 	\newpage
-	\section{Teorema di Nagumo}
-	Utilizzerò la formulazione del teorema di Nagumo presentata nel libro "Viability Theory"\cite{VT}. Diamo ora alcune definizione necessarie 
-	\begin{definizione}
-		Sia K un sottoinsieme di uno spazio vettoriale finito dimensionale (oppure di uno spazio normato) X . Diciamo che una funzione $x (\cdot) : [0,T] \rightarrow X$ è \textit{viable} in K su $[0,T]$ se 
-		$$\forall t \in [0,T] \ , \ \ x(t) \in K$$ 
-	\end{definizione}
-Consideriamo il seguente problema di cauchy 
-\begin{equation}
-	\label{diff:1}
-\begin{cases}
-	\dot{x}(t)= f(x(t)) \ \ \ \forall t \in [0,T ] \\ 
-	x(0) = x_0
-\end{cases}
-\end{equation}
- con $f : \Omega \subset_{\text{op}} X \rightarrow X$ 
-	\begin{definizione}
-		Sia un sottoinsieme di $\Omega$. 
-		Diciamo che K è\textit{ localmente viable} sotto $f$ se per ogni condizione iniziale $x_0 \in K $ , esiste un $T > 0$ e una soluzione viable su $[0,T]$  per l'equazione differenziale \ref{diff:1} con condizione iniziale $x_0$\\
-		K è (globalmente) viable sotto f se possiamo sempre prendere $T= \infty$ 
-	\end{definizione}
-\begin{definizione}[Cono Tangente di Bouligand]
-Sia W uno spazio normato , K un sottoinsieme non vuoto di W e sia x un elemento di K . Il cono tangente a K in x è l'insieme
-$$T_K(x)= \{v \in W \ | \ \liminf_{h\rightarrow 0^+ }\frac{d_K(x+hv)}{h}=0\}$$
-con $d_k(x):= \inf_{y \in K } \norm{x-y}$
-\end{definizione}
-Una definizione alternativa utilizza le successioni : \\
-v appartiene a $T_K(x)$ se e solo se esiste una successione $h_n >0$ $h_n \rightarrow 0^+$ e una successione $v_n \in K$ , $v_n \rightarrow v $ tale che 
-$$\forall n \in \mathbb{N} \ , \ x+h_nv_n \in K $$
-È utile notare che se x è un punto interno al sottoinsieme K allora $T_k(x)=X$ . Nel caso in cui K sia aperto il cono tangente ad un qualsiasi punto di K è tutto lo spazio normato V.\\
-\begin{lemma}
-Sia $x: [0,T] \rightarrow K $ una funzione differenziabile e viable , allora 
-$$\forall t \in [0,T) \ \ x'(t) \in T_K(x)$$
-\end{lemma}
-	\begin{definizione}[Viability Domain]
-		Sia  k un sottoinsieme di  $\Omega$. Diciamo che k è  un viability domain della mappa $f : \Omega \rightarrow X$ se 
-		$$\forall x \in X  \ \ , \ \ f(x) \in T_K(x)$$
-	\end{definizione}
-	
-	\begin{teo}{Nagumo}{}
-	 Suppiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } se e solo K è un viability domain
-	\end{teo}
-\begin{teo}{Viability}{}
-	Consideriamo un sottoinsieme K di uno spazio finito dimensionale X e una mappa continua  $f : K \rightarrow X$. \\ Se k è un viability domain , allora per ogni condizione iniziale $x_0\in K $ esiste un T positivo e una soluzione viable su $[0,T]$ per l'equazione differenziale \ref{diff:1} con C.I $x_0$ tale che 
-	$$\begin{cases}
-		T= + \infty  \\ 
-		T < +\infty \ \ \ \  e \ \ \ \  \limsup_{t\rightarrow T_-} \norm{x(t)}= \infty 
-	\end{cases}$$
-\end{teo}
 
-
-
-
-
-\include{appendice_tirocinio.tex}
-
-
-
-
+\include{section/section1.tex}
+\appendix
+\include{section/appendice_tirocinio.tex}
 \printbibliography[heading=bibintoc,title=Bibliografia]
 
 	\end{document}

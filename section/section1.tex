@@ -1,0 +1,68 @@
+	\section{Teorema di Nagumo}
+Utilizzerò la formulazione del teorema di Nagumo presentata nel libro "Viability Theory"\cite{VT}. Diamo ora alcune definizione necessarie 
+\begin{definizione}
+	Sia K un sottoinsieme di uno spazio vettoriale finito dimensionale (oppure di uno spazio normato) X . Diciamo che una funzione $x (\cdot) : [0,T] \rightarrow X$ è \textit{viable} in K su $[0,T]$ se 
+	$$\forall t \in [0,T] \ , \ \ x(t) \in K$$ 
+\end{definizione}
+Consideriamo il seguente problema di cauchy 
+\begin{equation}
+	\label{diff:1}
+	\begin{cases}
+		\dot{x}(t)= f(x(t)) \ \ \ \forall t \in [0,T ] \\ 
+		x(0) = x_0
+	\end{cases}
+\end{equation}
+con $f : \Omega \subset_{\text{op}} X \rightarrow X$ 
+\begin{definizione}
+	Sia un sottoinsieme di $\Omega$. 
+	Diciamo che K è\textit{ localmente viable} sotto $f$ se per ogni condizione iniziale $x_0 \in K $ , esiste un $T > 0$ e una soluzione viable su $[0,T]$  per l'equazione differenziale \ref{diff:1} con condizione iniziale $x_0$\\
+	K è (globalmente) viable sotto f se possiamo sempre prendere $T= \infty$ 
+\end{definizione}
+\begin{definizione}[Cono Tangente di Bouligand]
+	Sia X uno spazio normato , K un sottoinsieme non vuoto di X e sia x un elemento di K . Il cono tangente a K in x è l'insieme
+	$$T_K(x)= \{v \in X \ | \ \liminf_{h\rightarrow 0^+ }\frac{d_K(x+hv)}{h}=0\}$$
+	con $d_k(x):= \inf_{y \in K } \norm{x-y}$
+\end{definizione}
+Una definizione alternativa utilizza le successioni : \\
+v appartiene a $T_K(x)$ se e solo se esiste una successione $h_n >0$ $h_n \rightarrow 0^+$ e una successione $v_n \in X$ , $v_n \rightarrow v $ tale che 
+$$\forall n \in \mathbb{N} \ , \ x+h_nv_n \in K $$
+Il cono tangente a K nel punto x si può anche indicare con $T(K,x)$. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{immagini/ct}
+	\caption{Due esempi di cono tangente}
+	\label{fig:ct}
+\end{figure}
+Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi se l'insieme K è aperto ($K=K^0$) allora $\forall x \in K \ , \ T_k(x)=X$ . Saremmo quindi principalmente interessati a definire il cono tangente per punti apparteneti alla frontiera dell'insieme K . È importate sottolineare che può succedere che il cono tangente ad un punto di frontiera sia tutto lo spazio .
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{immagini/ct_all}
+	\caption{Insieme K tale che $T_k(0)=X$}
+	\label{fig:ct_all}
+\end{figure}
+\begin{lemma}
+	Sia $x: [0,T] \rightarrow K $ una funzione differenziabile e viable , allora 
+	$$\forall t \in [0,T) \ \ x'(t) \in T_K(x)$$
+\end{lemma}
+\begin{definizione}[Viability Domain]
+	Sia  k un sottoinsieme di  $\Omega$. Diciamo che k è  un viability domain della mappa $f : \Omega \rightarrow X$ se 
+	$$\forall x \in X  \ \ , \ \ f(x) \in T_K(x)$$
+\end{definizione}
+\begin{teo}{Nagumo}{}
+	Suppiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } se e solo K è un viability domain
+\end{teo}
+\begin{es}
+	Sia $K \subset \R \ , \ K =[-2,2]$ e sia $\dot{x}(t)=x(t)$ , con soluzione $x=x_0e^t$ , Sappiamo che K è localmente compatto perchè è un sottinsieme di uno spazio localmente compatto , inoltre la funzione x è continua . Controlliamo se K è un viability domanin . Sappiamo che se $x \in (2,2)$ allora $T_K(x) = \R$ , analizziamo ora i due punti di frontiera : 
+	\begin{itemize}
+	\item  Se $x=2 \rightarrow f(x)=2 $ . Il cono tangente rappresenta le direzioni in cui posso muovermi senza uscire da K . In questo coso posso unicamente muovermi verso sinistra quindi ottengo $T_K(2)= (-\infty , 0]$
+	\item Facendo un ragionamento simile  a quello precedente ottengo $T_K(-2)= [0 , +\infty )$
+	\end{itemize} 
+	Vediamo che per entrambi i punti di frontiera otteniamo  $ f(x)\notin T_K(x) $ quindi otteniamo che K non è locally viable , infatti io prendo ad esempio come dato iniziale la 
+\end{es}
+\begin{teo}{Viability}{}
+	Consideriamo un sottoinsieme K di uno spazio finito dimensionale X e una mappa continua  $f : K \rightarrow X$. \\ Se K è un viability domain , allora per ogni condizione iniziale $x_0\in K $ esiste un T positivo e una soluzione viable su $[0,T]$ per l'equazione differenziale \ref{diff:1} con C.I $x_0$ tale che 
+	$$\begin{cases}
+		T= + \infty  \\ 
+		T < +\infty \ \ \ \  e \ \ \ \  \limsup_{t\rightarrow T_-} \norm{x(t)}= \infty 
+	\end{cases}$$
+\end{teo}
