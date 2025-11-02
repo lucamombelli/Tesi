@@ -17,11 +17,4 @@
 ._*
 *.bcf
 *.xml
-
-# Output (decidi tu se vuoi tracciare il PDF finale)
-# Se NON vuoi tracciare il PDF, decommenta la riga seguente:
-# *.pdf 
-
-# Cartelle di build (se usi latexmk o simili)
-_build/
-.build/
+*.DS_Store
