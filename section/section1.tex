@@ -66,20 +66,40 @@ Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi
 	$$T_k(x_0) =\{v \in X | g(x_0) + \grad g(x_0) \cdot v \leq 0 )\} $$
 	Oppure possiamo utlizzare il fatto che il grandiente di g sia sempre perpeendicolare ad una curva di livello di g e che esso rappresenti la direzione di massima crescita 
 	$$T_k(x_0)  = \{v \in X  | \grad g (x_0) \cdot v \leq 0  \} $$ . 
-	Quindi proviamo a prendere un punto $x_0 = (0,\sqrt{5}) $ e vediamo se esso appartiene al cono tangente 
-	\begin{align*}
-		f(x_0) & = (0 , 5) \\
-		g(x_0) &= 0 \\
-		\grad{g(x_0)} &= ( 0 , 2\sqrt{5})\\
-			\grad{g(x_0)}  \cdot  f(x_0) &= 10 \sqrt{5} > 0 \rightarrow f(x_0) \notin T_k(x_0) 
-	\end{align*}
+	Proviamo a calcolare la condizone di appartenenza al cono tangente 
+\begin{align*}
+		\grad{g(x)} f(x) &= (2x , 2y)( x , y^2)^T \\
+		&= 2x^2 + 2y^3  \leq 0 \\
+		y & \leq  - x^{\frac{2}{3}}
+\end{align*}
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\linewidth]{immagini/circonferenza}
-		\caption{Esempio \ref{es:1.2} }
-		\label{fig:circonferenza}
+		\caption{Esempio \ref{es:1.2}(a) }
+		\label{fig:circonferenza} 
 	\end{figure}\\
-	Avendo trovato un punto $x_0$ per cui K non è un viability domain , per il teorema di Nagumo K non è locally viable sotto f 
+Infatti usando come punto $x_0= (0- , \sqrt{5})$
+\begin{align*}
+	f(x_0) & = (0 , 5) \\
+	g(x_0) &= 0 \\
+	\grad{g(x_0)} &= ( 0 , 2\sqrt{5})\\
+	\grad{g(x_0)}  \cdot  f(x_0) &= 10 \sqrt{5} > 0 \rightarrow f(x_0) \notin T_k(x_0) 
+\end{align*}
+Abbiamo quindi dimostrato che K non è un viabilioty domain per f  , allora k non potrà essere locally viable sotto f . \\
+
+
+	Proviamo ora a prendere lo stesso insieme K ma il campo vettoriale $f(x,y)= (-x , -y^3)$ . Vediamo se questo campo vettoriale rispetto la condizione di appartenenza al Cono tangente 
+	\begin{align*}
+		\grad{g(x)} f(x) &= (2x , 2y)(-x , -y^3) ^T \\
+		&= -2x^2 -2y^4 \leq 0 \forall (x,y ) \in \R^2 
+	\end{align*}
+	Abbiamo quindi dimostrato che $f(x)\in T_k(x) \forall x \in K $ , quindi K è un viability domain per f e per il teorema d iNagumo K è locally viable sotto f  
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{immagini/circonferenza_1}
+		\caption{Esempio \ref{1.2}(b)  }
+		\label{fig:circonferenza_1} 
+	\end{figure}\\
 	\end{es}
 \begin{teo}{Viability}{}
 	Consideriamo un sottoinsieme K di uno spazio finito dimensionale X e una mappa continua  $f : K \rightarrow X$. \\ Se K è un viability domain , allora per ogni condizione iniziale $x_0\in K $ esiste un T positivo e una soluzione viable su $[0,T]$ per l'equazione differenziale \ref{diff:1} con C.I $x_0$ tale che 
