@@ -15,7 +15,7 @@ Consideriamo il seguente problema di cauchy
 con $f : \Omega \subset_{\text{op}} X \rightarrow X$ 
 \begin{definizione}
 	Sia un sottoinsieme di $\Omega$. 
-	Diciamo che K è\textit{ localmente viable} sotto $f$ se per ogni condizione iniziale $x_0 \in K $ , esiste un $T > 0$ e una soluzione viable su $[0,T]$  per l'equazione differenziale \ref{diff:1} con condizione iniziale $x_0$\\
+	Diciamo che K è\textit{ locally viable} sotto $f$ se per ogni condizione iniziale $x_0 \in K $ , esiste un $T > 0$ e una soluzione viable su $[0,T]$  per l'equazione differenziale \ref{diff:1} con condizione iniziale $x_0$\\
 	K è (globalmente) viable sotto f se possiamo sempre prendere $T= \infty$ 
 \end{definizione}
 \begin{definizione}[Cono Tangente di Bouligand]
@@ -49,16 +49,38 @@ Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi
 	$$\forall x \in X  \ \ , \ \ f(x) \in T_K(x)$$
 \end{definizione}
 \begin{teo}{Nagumo}{}
-	Suppiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } se e solo K è un viability domain
+	Suppiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } sotto f  se e solo K è un \textit{viability domain} della mappa f 
 \end{teo}
 \begin{es}
-	Sia $K \subset \R \ , \ K =[-2,2]$ e sia $\dot{x}(t)=x(t)$ , con soluzione $x=x_0e^t$ . K è un intervallo chiuso e limitato , quindi compatto  ,  inoltre la funzione x è continua , quindi le ipotesi del teorema sono rispettate . Controlliamo se K è un viability domanin . Sappiamo che se $x \in (2,2)$ allora $T_K(x) = \R$ , analizziamo ora i due punti di frontiera : 
+	Sia $K \subset \R \ , \ K =[-2,2]$ e sia $\dot{x}(t)=x(t)$. K è un intervallo chiuso e limitato , quindi compatto  ,  inoltre la funzione x è continua , quindi le ipotesi del teorema sono rispettate . Controlliamo se K è un viability domanin . Sappiamo che se $x \in (2,2)$ allora $T_K(x) = \R$ , analizziamo ora i due punti di frontiera : 
 	\begin{itemize}
-	\item  Se $x=2 \rightarrow f(x)=2 $ . Il cono tangente rappresenta le direzioni in cui posso muovermi senza uscire da K . In questo caso = posso unicamente muovermi verso sinistra quindi ottengo $T_K(2)= (-\infty , 0]$
+	\item  Se $x=2 \rightarrow f(x)=2 $ . Il cono tangente rappresenta le direzioni in cui posso muovermi senza uscire da K . In questo caso  posso unicamente muovermi verso sinistra quindi ottengo $T_K(2)= (-\infty , 0]$
 	\item Facendo un ragionamento simile  a quello precedente ottengo $T_K(-2)= [0 , +\infty )$
 	\end{itemize} 
-	Vediamo che per entrambi i punti di frontiera otteniamo  $ f(x)\notin T_K(x) $ quindi otteniamo che K non è locally viable , infatti io prendo ad esempio come dato iniziale la 
+	Vediamo che per entrambi i punti di frontiera otteniamo  $ f(x)\notin T_K(x) $ quindi   K non è viability domain per f . \\
+	Prendiamo , ora l'intervallo $K=(-\infty , 0] $ , in questo caso il sottoinsieme non è compatto ma localmente compatto , poichè è un sottoinsieme di un insieme localmente compatto , lo spazio euclideo . \\Come prima se prendiamo $x \in (-\infty , 0 )$ otteniamo $T_k(x)=\R$ . Passiamo  ora a studiare il punto $x=0$ per cui otteniamo  $f(0)=0$ , invece il cono tangente nel punto zero è $T_k(0)= (-\infty , 0]$  . Possiamo osservare che $f(0) \in T_x(0)$ e quindi in generale K è un viabilty domain e quindi locally viable 
 \end{es}
+\begin{es}
+	\label{es:1.2}
+	Sia $K \subset \R^2 \ , \ K=\{(x,y)\in \R^2|x^2+y^2-5 \leq 0\} = \{(x,y)\in \R^2|g(x,y )\leq 0 \} $ e prendiamo $f(x,y)= ( x , y^2)$.K è un sottoinsieme  compatto e f è un campo vettoriale continuo . Sappiamo che per $x \in K^0 \rightarrow T_K(x)=\R^2$ . Occupiamoci  ora dei punti $x \in \partial K $ , quindi che appartengo alla curva di livello $f^{-1}(5)=\{(x,y)\in \R^2\ | \ x^2 +y^2 = 5 \}  $. In questo caso la curva è differenziale e possiamo definire il cono tangente attraverso rette tangenti infatti 
+	$$T_k(x_0) =\{v \in X | g(x_0) + \grad g(x_0) \cdot v \leq 0 )\} $$
+	Oppure possiamo utlizzare il fatto che il grandiente di g sia sempre perpeendicolare ad una curva di livello di g e che esso rappresenti la direzione di massima crescita 
+	$$T_k(x_0)  = \{v \in X  | \grad g (x_0) \cdot v \leq 0  \} $$ . 
+	Quindi proviamo a prendere un punto $x_0 = (0,\sqrt{5}) $ e vediamo se esso appartiene al cono tangente 
+	\begin{align*}
+		f(x_0) & = (0 , 5) \\
+		g(x_0) &= 0 \\
+		\grad{g(x_0)} &= ( 0 , 2\sqrt{5})\\
+			\grad{g(x_0)}  \cdot  f(x_0) &= 10 \sqrt{5} > 0 \rightarrow f(x_0) \notin T_k(x_0) 
+	\end{align*}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{immagini/circonferenza}
+		\caption{Esempio \ref{es:1.2} }
+		\label{fig:circonferenza}
+	\end{figure}\\
+	Avendo trovato un punto $x_0$ per cui K non è un viability domain , per il teorema di Nagumo K non è locally viable sotto f 
+	\end{es}
 \begin{teo}{Viability}{}
 	Consideriamo un sottoinsieme K di uno spazio finito dimensionale X e una mappa continua  $f : K \rightarrow X$. \\ Se K è un viability domain , allora per ogni condizione iniziale $x_0\in K $ esiste un T positivo e una soluzione viable su $[0,T]$ per l'equazione differenziale \ref{diff:1} con C.I $x_0$ tale che 
 	$$\begin{cases}
