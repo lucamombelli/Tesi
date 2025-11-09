@@ -1,0 +1,57 @@
+\section{Control Barrier Function}
+\subsection{Introduzione}
+Da completare 
+\subsection{Vere e propria formulaione}
+Consideriamo il sistema dinamico non lineare affine al controllo 
+\begin{equation}
+	\label{eq:2.2.1}
+	\dot{x} = f(x) + g(x) u 
+\end{equation}
+dove $x \in \R^n \ , \ iu \in \R^m$ sono rispettivamente lo stato e l'input del sistema . Le funzioni $f : \R^n \rightarrow \R^n$ e $g : \R^n \rightarrow \R^{n \times m}$ sono localmente liptschiziane . \\
+Consideriamo il sottoinsieme $S$  , definito come l'insieme di sopralivello di una funzione $h : \R^n \rightarrow \R$ : 
+\begin{align}
+	\label{eq:2.2.2}
+ 	S &= \{ x \in \R^n | h(x) \geq 0 \} \\
+	S^0 &= \{x \in \R^n \ | \ h(x) > 0 \} \\
+	\label{eq:2.2.3}
+	\partial S & = \{x \in \R^n \ | \ h(x)=0\}
+\end{align}
+\begin{definizione}
+La funzione $h \in \C^1 , h : \R^n \rightarrow \R$ è una control barrier function , per il sistema \ref{eq:2.2.1} , sull'insieme S , definito da \ref{eq:2.2.2} - \ref{eq:2.2.3} , se esiste una funzione classe $\kappa_{\infty}$ estesa
+\footnote{Per $a \in R^+$ , una funzione continua $\alpha : [0 ,a ) \rightarrow \R$ è una funzione di classe $\kappa$ se è strettamente crescente e $\alpha(0)=0$. Una funzione continua $\alpha : (-b ,a ) \rightarrow \R , \ \ \ a , b \in \R^+$  è una funzione di classe $\kappa$ estesa se è strettamente crescente e $\alpha(0)=0$. Inoltre , se $a = b = \infty$ e $\lim_{r \rightarrow \infty } \alpha(r)= \infty $ , allora viene chiamata funzione di classe $\kappa_{\infty} $ estesa }tale che : 
+\begin{align*}
+	\sup_{u \in \R^m} &[L_f h(x) + L_g h(x) u \geq - \alpha (h(x))]  \ \   \forall x \in S  \\ 
+	\sup_{u \in \R^m} &[\grad{h(x)} f(x) + \grad{h(x)} g(x) u \geq - \alpha (h(x))]\ \ \   \forall x \in S 
+\end{align*}
+ \end{definizione}
+ Consideriamo ora l'insieme di tutti i valori di input che rendono il sottoinsieme S invariante : 
+ $$K_{cbf}(u)= \{u \in \R^m \ | \ L_f h(x) + L_g h(x) u \geq - \alpha (h(x)) \}$$
+ \begin{teo}{}{}
+ 	Sia $S \subseteq \R^n$ l'insieme di sopralivello di una funzione differenziabile continuità $h:D \subset  \R^n \rightarrow \R $ , se h è una control barrier function su D e $\grad{h(x)} \neq 0 \ \ \forall x \in \partial S  $ , allora un qualsiasi controllore liptschiziano u tale che $u(x) \in K_{cbf}$ per il sistema \ref{eq:2.2.1} rende S invariante (in avanti)
+ \end{teo}
+ \begin{proof}
+ 	Per ogni $x \in \partial C $abbiamo che $L_f h(x) + L_g h(x) u \geq - \alpha (h(x)) = 0 $. Possiamo allora definire il cono tangente come $T_S(x) = \{v \in \R^n \ | \ \grad{h(x)v} \geq 0\}$. Sappiamo che $\forall x \in S^0  \ \ T_S(x)=\R^n$ , proviamo a vedere ora i punti appartenti alla frontiera 
+ \begin{align*}
+	\grad{h(x)}(f(x)+g(x)u) \geq 0  \\
+	\grad{h(x)} f(x) + \grad{h(x)} g(x) u  \geq 0 \\  
+L_f h(x) + L_g h(x) u  \geq 0 
+ \end{align*}
+ allora K è viability domain e quindi locally viable sotto f . Ora abbiamo ipotizzato che f , g , u siano localmente liptschiziane soddisfando così il teorema di esistenza e unicità. Sapendo che la soluzione esista ed è unica le due condizioni di viable e invarianza corrispondo , abbiamo cosi dimostrato ch es è invariante 
+ 	 \end{proof}
+ Inoltre le control barrier function forniscono una condizione necessaria e sufficiente per l'invarianza in avanti se il sottinsieme S è compatto 
+ \begin{teo}{}{}
+ 	Sia S un insieme di sopralivello compatto di una funzione $h \in C^1 \ , \ h : \R^n \rightarrow \R$ , con $\grad{h(x)}\neq 0 \ \ \forall x \in \partial S$. Se esiste una legge di controllo $u=k(x)$ che rende il sottoinsieme S invariante , allora $h|_S : S \rightarrow \R$ è una control barrier function su C 
+ \end{teo}
+ \begin{proof}
+ 	Sia $h \in C^1 , h|_S : S \rightarrow \R $. Per ogni $r \geq  0 $ l'insieme $\{x \ | \ 0 \leq h(x) \leq r\}$ è un sottoinsieme compatto di C. Definiamo una funzione $\alpha : [0 , \infty )\rightarrow \infty $ con 
+ 	$$\alpha(r) = - \inf_{\{x \ | \ 0 \leq h(x) \leq r\}} L_f h + L_g h \ u $$Usando la compattezza del sottoinsieme e la continuità di $L_f h + L_g h \ u $ , $\alpha$ è una funzione ben definita , crescente che soddisfa $$L_hf + L_g h \ u \geq  - \alpha (h(x))$$Per il Teorema di Nagumo  \ref{teo:1} l'invarianza di C è equivalente a : $$L_hf + L_g h \ u \geq   0 \forall x \in \partial S $$ , ciò implica che $\alpha(0) \leq 0$. Possiamo sempre prendere una funzione di classe $\kappa \ \hat{\alpha }$ che maggiora $\alpha$ , facendo così abbiamo ottenuto $L_hf + L_g h \ u \geq  -\hat { \alpha } (h(x))$.
+ \end{proof}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

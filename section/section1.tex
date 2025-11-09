@@ -1,10 +1,10 @@
 	\section{Teorema di Nagumo}
-Utilizzerò la formulazione del teorema di Nagumo presentata nel libro "Viability Theory"\cite{VT}. Diamo ora alcune definizione necessarie 
+Introduciamo il Teorema di Nagumo , secondo la formulazione presentata in \cite{VT} , che rappresenta una degli elementi fondamentali per trattare le Control Barrier function 
 \begin{definizione}
 	Sia K un sottoinsieme di uno spazio vettoriale finito dimensionale (oppure di uno spazio normato) X . Diciamo che una funzione $x (\cdot) : [0,T] \rightarrow X$ è \textit{viable} in K su $[0,T]$ se 
 	$$\forall t \in [0,T] \ , \ \ x(t) \in K$$ 
 \end{definizione}
-Consideriamo il seguente problema di cauchy 
+Consideriamo il seguente problema di Cauchy 
 \begin{equation}
 	\label{diff:1}
 	\begin{cases}
@@ -30,10 +30,10 @@ Il cono tangente a K nel punto x si può anche indicare con $T(K,x)$.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{immagini/ct}
-	\caption{Due esempi di cono tangente}
+	\caption{Due esempi di cono tangente (\cite{Jahn2020})}
 	\label{fig:ct}
 \end{figure}
-Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi se l'insieme K è aperto ($K=K^0$) allora $\forall x \in K \ , \ T_k(x)=X$ . Saremmo quindi principalmente interessati a definire il cono tangente per punti apparteneti alla frontiera dell'insieme K . È importate sottolineare che può succedere che il cono tangente ad un punto di frontiera sia tutto lo spazio .
+Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi se l'insieme K è aperto ($K=K^0$) allora $\forall x \in K \ , \ T_k(x)=X$ . Saremmo quindi principalmente interessati a definire il cono tangente per punti appartenenti alla frontiera del'insieme K . È importate sottolineare che può succedere che il cono tangente ad un punto di frontiera sia tutto lo spazio .
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{immagini/ct_all}
@@ -49,7 +49,8 @@ Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi
 	$$\forall x \in X  \ \ , \ \ f(x) \in T_K(x)$$
 \end{definizione}
 \begin{teo}{Nagumo}{}
-	Suppiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } sotto f  se e solo K è un \textit{viability domain} della mappa f 
+	\label{teo:1}
+	Supponiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } sotto f  se e solo K è un \textit{viability domain} della mappa f 
 \end{teo}
 \begin{es}
 	Sia $K \subset \R \ , \ K =[-2,2]$ e sia $\dot{x}(t)=x(t)$. K è un intervallo chiuso e limitato , quindi compatto  ,  inoltre la funzione x è continua , quindi le ipotesi del teorema sono rispettate . Controlliamo se K è un viability domanin . Sappiamo che se $x \in (2,2)$ allora $T_K(x) = \R$ , analizziamo ora i due punti di frontiera : 
@@ -64,9 +65,9 @@ Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi
 	\label{es:1.2}
 	Sia $K \subset \R^2 \ , \ K=\{(x,y)\in \R^2|x^2+y^2-5 \leq 0\} = \{(x,y)\in \R^2|g(x,y )\leq 0 \} $ e prendiamo $f(x,y)= ( x , y^2)$.K è un sottoinsieme  compatto e f è un campo vettoriale continuo . Sappiamo che per $x \in K^0 \rightarrow T_K(x)=\R^2$ . Occupiamoci  ora dei punti $x \in \partial K $ , quindi che appartengo alla curva di livello $f^{-1}(5)=\{(x,y)\in \R^2\ | \ x^2 +y^2 = 5 \}  $. In questo caso la curva è differenziale e possiamo definire il cono tangente attraverso rette tangenti infatti 
 	$$T_k(x_0) =\{v \in X | g(x_0) + \grad g(x_0) \cdot v \leq 0 )\} $$
-	Oppure possiamo utlizzare il fatto che il grandiente di g sia sempre perpeendicolare ad una curva di livello di g e che esso rappresenti la direzione di massima crescita 
+	Oppure possiamo utilizzare il fatto che il gradiente di g sia sempre perpendicolare ad una curva di livello di g e che esso rappresenti la direzione di massima crescita 
 	$$T_k(x_0)  = \{v \in X  | \grad g (x_0) \cdot v \leq 0  \} $$ . 
-	Proviamo a calcolare la condizone di appartenenza al cono tangente 
+	Proviamo a calcolare la condizione di appartenenza al cono tangente 
 \begin{align*}
 		\grad{g(x)} f(x) &= (2x , 2y)( x , y^2)^T \\
 		&= 2x^2 + 2y^3  \leq 0 \\
@@ -85,7 +86,7 @@ Infatti usando come punto $x_0= (0- , \sqrt{5})$
 	\grad{g(x_0)} &= ( 0 , 2\sqrt{5})\\
 	\grad{g(x_0)}  \cdot  f(x_0) &= 10 \sqrt{5} > 0 \rightarrow f(x_0) \notin T_k(x_0) 
 \end{align*}
-Abbiamo quindi dimostrato che K non è un viabilioty domain per f  , allora k non potrà essere locally viable sotto f . \\
+Abbiamo quindi dimostrato che K non è un viability domain per f  , allora k non potrà essere locally viable sotto f . \\
 
 
 	Proviamo ora a prendere lo stesso insieme K ma il campo vettoriale $f(x,y)= (-x , -y^3)$ . Vediamo se questo campo vettoriale rispetto la condizione di appartenenza al Cono tangente 
@@ -93,11 +94,11 @@ Abbiamo quindi dimostrato che K non è un viabilioty domain per f  , allora k no
 		\grad{g(x)} f(x) &= (2x , 2y)(-x , -y^3) ^T \\
 		&= -2x^2 -2y^4 \leq 0 \forall (x,y ) \in \R^2 
 	\end{align*}
-	Abbiamo quindi dimostrato che $f(x)\in T_k(x) \forall x \in K $ , quindi K è un viability domain per f e per il teorema d iNagumo K è locally viable sotto f  
+	Abbiamo quindi dimostrato che $f(x)\in T_k(x) \forall x \in K $ , quindi K è un viability domain per f e per il teorema d Nagumo K è locally viable sotto f  
 		\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\linewidth]{immagini/circonferenza_1}
-		\caption{Esempio \ref{1.2}(b)  }
+		\caption{Esempio \ref{es:1.2} (b)  }
 		\label{fig:circonferenza_1} 
 	\end{figure}\\
 	\end{es}
@@ -107,4 +108,10 @@ Abbiamo quindi dimostrato che K non è un viabilioty domain per f  , allora k no
 		T= + \infty  \\ 
 		T < +\infty \ \ \ \  e \ \ \ \  \limsup_{t\rightarrow T_-} \norm{x(t)}= \infty 
 	\end{cases}$$
+\end{teo}
+Se abbiamo a disposizioni ulteriori informazioni sulla funzione $f$ potremmo escludere a priori il caso in cui $\lim_{ t \rightarrow T^-} \norm{x(t)}= \infty$.
+\begin{teo}{}{}
+	Consideriamo un sottoinsieme K di uno spazio vettoriale finito dimensionale X e una mappa $f : K \rightarrow X$. Supponiamo che $f$ sia continua , che 
+	$$\exists c > 0 \ t.c \ \forall x \in K \ , \ \norm{f(x)} \leq c (\norm{x}+1)$$
+	e che K sia un viability domani chiuso per f . Allora K è viable sotto f e $T= \infty $
 \end{teo}
