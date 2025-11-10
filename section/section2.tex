@@ -1,7 +1,5 @@
 \section{Control Barrier Function}
-\subsection{Introduzione}
-Da completare 
-\subsection{Vere e propria formulaione}
+Le control barrier function traggono ispirazione dalle control Lyapunov function , che rappresentano l'estensione al controllo delle funzioni di Lyapunov . Allo stesso modo le CBF sono l'estensione al controllo della funzioni di barriera , utilizzate in ottimizzazione.  Lo scopo principale delle CBF è definire un sottoinsieme  invariante in avanti , ossia un insieme per cui ogni traiettoria che parte da esso rimane al suo interno per ogni tempo futuro . Inoltre sono molto utili nella sintesi di controllori che ci permettono di rimanere nel sottoinsieme. \\
 Consideriamo il sistema dinamico non lineare affine al controllo 
 \begin{equation}
 	\label{eq:2.2.1}
@@ -44,7 +42,7 @@ L_f h(x) + L_g h(x) u  \geq 0
  \end{teo}
  \begin{proof}
  	Sia $h \in C^1 , h|_S : S \rightarrow \R $. Per ogni $r \geq  0 $ l'insieme $\{x \ | \ 0 \leq h(x) \leq r\}$ è un sottoinsieme compatto di C. Definiamo una funzione $\alpha : [0 , \infty )\rightarrow \infty $ con 
- 	$$\alpha(r) = - \inf_{\{x \ | \ 0 \leq h(x) \leq r\}} L_f h + L_g h \ u $$Usando la compattezza del sottoinsieme e la continuità di $L_f h + L_g h \ u $ , $\alpha$ è una funzione ben definita , crescente che soddisfa $$L_hf + L_g h \ u \geq  - \alpha (h(x))$$Per il Teorema di Nagumo  \ref{teo:1} l'invarianza di C è equivalente a : $$L_hf + L_g h \ u \geq   0 \forall x \in \partial S $$ , ciò implica che $\alpha(0) \leq 0$. Possiamo sempre prendere una funzione di classe $\kappa \ \hat{\alpha }$ che maggiora $\alpha$ , facendo così abbiamo ottenuto $L_hf + L_g h \ u \geq  -\hat { \alpha } (h(x))$.
+ 	$$\alpha(r) = - \inf_{\{x \ | \ 0 \leq h(x) \leq r\}} L_f h + L_g h \ u $$Usando la compattezza del sottoinsieme e la continuità di $L_f h + L_g h \ u $ , $\alpha$ è una funzione ben definita , crescente che soddisfa $$L_hf + L_g h \ u \geq  - \alpha (h(x))$$Per il Teorema di Nagumo  \ref{teo:1} l'invarianza di C è equivalente a : $$L_hf + L_g h \ u \geq   0  \ \ \ \  \forall x \in \partial S $$ , ciò implica che $\alpha(0) \leq 0$. Possiamo sempre prendere una funzione di classe $\kappa \ \hat{\alpha }$ che maggiora $\alpha$ , facendo così abbiamo ottenuto  $L_hf + L_g h \ u \geq  -\hat { \alpha } (h(x))$.
  \end{proof}
  
  
