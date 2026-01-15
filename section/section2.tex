@@ -17,10 +17,10 @@ Consideriamo il sottoinsieme $S$  , definito come l'insieme di sopralivello di u
 \begin{definizione}
 La funzione $h \in \C^1 , h : \R^n \rightarrow \R$ è una control barrier function , per il sistema \ref{eq:2.2.1} , sull'insieme S , definito da \ref{eq:2.2.2} - \ref{eq:2.2.3} , se esiste una funzione classe $\kappa_{\infty}$ estesa
 \footnote{Per $a \in R^+$ , una funzione continua $\alpha : [0 ,a ) \rightarrow \R$ è una funzione di classe $\kappa$ se è strettamente crescente e $\alpha(0)=0$. Una funzione continua $\alpha : (-b ,a ) \rightarrow \R , \ \ \ a , b \in \R^+$  è una funzione di classe $\kappa$ estesa se è strettamente crescente e $\alpha(0)=0$. Inoltre , se $a = b = \infty$ e $\lim_{r \rightarrow \infty } \alpha(r)= \infty $ , allora viene chiamata funzione di classe $\kappa_{\infty} $ estesa }tale che : 
-\begin{align*}
-	\sup_{u \in \R^m} &[L_f h(x) + L_g h(x) u \geq - \alpha (h(x))]  \ \   \forall x \in S  \\ 
-	\sup_{u \in \R^m} &[\grad{h(x)} f(x) + \grad{h(x)} g(x) u \geq - \alpha (h(x))]\ \ \   \forall x \in S 
-\end{align*}
+\begin{align}
+	\sup_{u \in \R^m} &[L_f h(x) + L_g h(x) u \geq - \alpha (h(x))]  \ \   \forall x \in S \notag  \\ 
+	\sup_{u \in \R^m} &[\grad{h(x)}^T f(x) + \grad{h(x)}^T g(x) u \geq - \alpha (h(x))]\ \ \   \forall x \in S  \label{eq:2.5}
+\end{align}
  \end{definizione}
  Consideriamo ora l'insieme di tutti i valori di input che rendono il sottoinsieme S invariante : 
  $$K_{cbf}(u)= \{u \in \R^m \ | \ L_f h(x) + L_g h(x) u \geq - \alpha (h(x)) \}$$
@@ -44,9 +44,24 @@ L_f h(x) + L_g h(x) u  \geq 0
  	Sia $h \in C^1 , h|_S : S \rightarrow \R $. Per ogni $r \geq  0 $ l'insieme $\{x \ | \ 0 \leq h(x) \leq r\}$ è un sottoinsieme compatto di C. Definiamo una funzione $\alpha : [0 , \infty )\rightarrow \infty $ con 
  	$$\alpha(r) = - \inf_{\{x \ | \ 0 \leq h(x) \leq r\}} L_f h + L_g h \ u $$Usando la compattezza del sottoinsieme e la continuità di $L_f h + L_g h \ u $ , $\alpha$ è una funzione ben definita , crescente che soddisfa $$L_hf + L_g h \ u \geq  - \alpha (h(x))$$Per il Teorema di Nagumo  \ref{teo:1} l'invarianza di C è equivalente a : $$L_hf + L_g h \ u \geq   0  \ \ \ \  \forall x \in \partial S $$ , ciò implica che $\alpha(0) \leq 0$. Possiamo sempre prendere una funzione di classe $\kappa \ \hat{\alpha }$ che maggiora $\alpha$ , facendo così abbiamo ottenuto  $L_hf + L_g h \ u \geq  -\hat { \alpha } (h(x))$.
  \end{proof}
- 
- 
- 
+ Ora che sappiamo che le CBF forniscono delle condizioni per la sicurezza di un insieme vogliamo trovare un metodo per creare i controlli .\\ Supponiamo di avere un controllo $u$ per il sistema dinamico \ref{eq:2.2.1} e vogliamo che essere garantisca l'invarianza (sicurezza). Supponiamo che $u \notin K_{cbf} $ per alcune $x \in R^n$. Vogliamo modificare questo controllo per assicurare l'invarianza , iniziamo notando che la condizione \ref{eq:2.5} è affine in u , possiamo allora considerare il seguente problema quadratico 
+ \begin{align*}
+ 	u(x) &= \argmin_{u \in U \subseteq \R^n} \frac{1}{2}\norm{u - k(x)}_2^2 \\
+ &	s.t \ \ \ [L_f h(x) + L_g h(x) u \geq - \alpha (h(x))
+ \end{align*}
+ Per questo problema esiste una soluzione $u^*$ in forma chiusa : 
+ \[u^*  = u_{safe} + u_{des}\] dove 
+ \[u_{safe} = \begin{cases}
+ 	\frac{\Phi ( x , t , u_{des})}{L_gh(x)L_gh(x)^T} L_gh(x)^T   \ \ \ \ \ \Phi < 0 \\
+ 	0 \ \ \ \ \ \ \ \Phi \geq  0 
+ \end{cases}\]
+ con 
+ \[\Phi ( x , t , u_{des}) \triangleq \grad{h(x)}^T f(x) + \grad{h(x)}^T g(x) u  +\alpha (h(x)) \]
+ Presentiamo ora un esempio di applicazione delle CBF : 
+ \begin{es}
+ 	Vogliamo che un punto materiale si sposti da una posizione iniziale $x_0 \in \R^2$ fino ad un obbiettivo con posizione $x_g \in R^2 $ , evitando un ostacolo ostacolo , modellizzato tramite una circonferenza di centro $x_{obs}$ e raggio $r_{obs}$. \\ Iniziamo introducendo la CBF : 
+ 	\[h(x) = \norm{x-x_g} - r_{obs}\]
+ \end{es}
  
  
  

@@ -269,10 +269,10 @@ ylabel("Y[m") ;
  figure(3)
  hold on ; 
 
- quiver(2 , 2 , u_des(1) , u_des(2) , 'LineWidth',1.5)
- quiver(2 , 2 , u_safe(1) , u_safe(2) , 'LineWidth',1.5)
- quiver(2 , 2 , u(1) , u(2) , 'LineWidth',1.5 )
- quiver(2 , 2 ,gradients(1) , gradients(2), 'LineWidth',1.5)
+ quiver(2 , 2 , u_des(1) , u_des(2) ,0, 'LineWidth',1.5)
+ quiver(2 , 2 , u_safe(1) , u_safe(2) ,0, 'LineWidth',1.5)
+ quiver(2 , 2 , u(1) , u(2) , 0,'LineWidth',1.5 )
+ quiver(2 , 2 ,gradients(1) , gradients(2),0, 'LineWidth',1.5)
  fill(xO,yO,'k', 'Facealpha' , 0.5)
  legend("u desired" , "u safe" , "u" , "\nabla h")
  xlabel("X[m]") 
