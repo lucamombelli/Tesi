@@ -34,19 +34,21 @@ hold on;
 %left_wheel  = rectangle('Position',[w1x,w1y,wr,wr],'Curvature',1,'FaceColor',[1 1 1],'EdgeColor',[1 1 1]);
 %right_wheel = rectangle('Position',[w2x,w2y,wr,wr],'Curvature',1,'FaceColor',[1 1 1],'EdgeColor',[1 1 1]);
     
-pendulum = plot([x px],[y py],'b','LineWidth',2.5); % Pendulum rod 
-p_cir = viscircles([px py],0.02,'Color',[1 0.1 0.1],'LineWidth',2.5); % Pendulum Trajectory(Circle)
+pendulum = plot([x px],[y py],'b','LineWidth',2); % Pendulum rod 
+p_cir = viscircles([px py],0.01,'Color',[1 0.1 0.1],'LineWidth',2.5); % Pendulum Trajectory(Circle)
 %p_cir1 = viscircles([x y],0.02,'Color','w','LineWidth',0.2); % center of Cart
-obstacle = fill(x_obs,y_obs,'r') ;
-target = scatter(tgt , 0 , 50 , 'g','filled' );
+obsacle = fill(x_obs,y_obs,'r') ;
+target = xline(tgt ,'Color','g','LineWidth',0.5,'LineStyle','--','Label','Target Positon');
 
 
 xlabel('X (m)');
 ylabel('Y (m)');
 title('Inverted pendulum')
 axis(gca,'equal');
-xlim([-5 5]);
-ylim([-1 1.5 ]);
+xlim([-4 tgt+1]);
+ylim([-0.5 1.5 ]);
 grid on;   
    
    
+hold off;
+end

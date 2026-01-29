@@ -53,21 +53,15 @@ while n < max_iter && tout(n) < tstar
         % Tuning adattivo
         k2_adapt = k2;
         a2_adapt = a2;
-        if val_h1 < 0.2
-            k2_adapt = k2 * 0.6;
-        end
-        if val_b1 < 0.2
-            a2_adapt = a2 * 0.6;
-        end
-
+        
         % Controllo nominale LQR verso il target
         y_des = [x_tgt; 0; 0; 0];
         u_nom = -K * (x_curr - y_des);
 
         % QP con vincoli CBF
-        H = diag([1, 1e8, 1e10]);
+        H = diag([1, 1e10, 1e10]);
         f_qp = [-u_nom; 0; 0];
-        A = [-Lg_h1, -1,  0;
+        A = [-Lg_h1, 0,  0;
             -Lg_b1,  0, -1];
         b_qp = [Lf_h1 + k2_adapt * val_h1;
             Lf_b1 + a2_adapt * val_b1];

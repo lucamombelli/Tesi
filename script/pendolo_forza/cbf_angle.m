@@ -21,10 +21,10 @@ for n=1:length(tspan)-1
     Lg_b1 = dot(grad_b1, g_val);
     %val = yout(:,n) ;
     %u_nom(1,n) = (x_tgt-val(1)) ;
-    u_nom = 1.2 ;
+    %u_nom = 1.2 ;
 
     y_des = [x_tgt;0;0;0];
-    %u_nom = - K * (x_curr - y_des) ;
+    u_nom = - K * (x_curr - y_des) ;
 
 
     H = 1;
