@@ -1,11 +1,13 @@
-function animation =  IP_Animation(x,th,d ,epsilon, valori_numerici,tgt)
+function IP_Animation(x,th,obs, valori_numerici,tgt , initial_state)
 
+%{
 persistent j
 if isempty(j)
     j = 0;
 end
 
 j = j+1;
+%} 
 
 W  = 0; % width of cart
 H  = 0; % hight of Cart
@@ -25,8 +27,8 @@ py = y + L*cos(th);
 
 %Position of the obstacle
 mesh = linspace(0,2*pi,100);
-x_obs = epsilon*cos(mesh) ; 
-y_obs = epsilon *sin(mesh) + d ;
+x_obs = obs.epsilon*cos(mesh) ; 
+y_obs = obs.epsilon *sin(mesh) + obs.d ;
 
 base = plot([-15 15],[0 0],'k','LineWidth',2); % base line
 hold on;
@@ -39,13 +41,13 @@ p_cir = viscircles([px py],0.01,'Color',[1 0.1 0.1],'LineWidth',2.5); % Pendulum
 %p_cir1 = viscircles([x y],0.02,'Color','w','LineWidth',0.2); % center of Cart
 obsacle = fill(x_obs,y_obs,'r') ;
 target = xline(tgt ,'Color','g','LineWidth',0.5,'LineStyle','--','Label','Target Positon');
-
+star = xline(initial_state(1) ,'Color','b','LineWidth',0.5,'LineStyle','--','Label','Start Positon');
 
 xlabel('X (m)');
 ylabel('Y (m)');
 title('Inverted pendulum')
 axis(gca,'equal');
-xlim([-4 tgt+1]);
+xlim([initial_state(1)-1 tgt+1]);
 ylim([-0.5 1.5 ]);
 grid on;   
    

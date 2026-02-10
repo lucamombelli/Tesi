@@ -5,20 +5,22 @@ clc;
 syms x v_x
 syms theta v_theta
 syms u
-syms m l M g
+syms m l M g mu_d
 syms t
 
-x_target_pos = 5;
+x_target_pos = 4;
 
 % Parametri per l'ostacolo 
-d = 1; % Altezza 
-epsilon = 0.1 ; %Raggio dell'ostacolo
+% d = 1 works with k1 = k2 = 8-25 and epsilon = 0.1 - 0.49
+% d = 0.9 works with k1 = k2 = 10-   and epsilon = 
+obs.d = 1; % Altezza 
+obs.epsilon = 0.2; %Raggio dell'ostacolo
 
 % Boundend Control
-u_max = 300;
-u_min = -300;
+u_max = +inf;
+u_min = -200;
 
-parametri_simbolici = [M, m, l, g];
+parametri_simbolici = [M, m, l, g ];
 valori_numerici     = [1, 0.1, 1, 9.81];
 state = [x, theta, v_x, v_theta].';
 
@@ -30,7 +32,7 @@ A_mat = [1, 0, 0, 0;
 
 b_vec = [v_x;
     v_theta;
-    -m*l*v_theta^2 * sin(theta)+u;
+    -m*l*v_theta^2 * sin(theta)+u-0.1*v_x ;
     m*g*l*sin(theta)];
 
 sys = A_mat \ b_vec;
@@ -56,23 +58,23 @@ B_lin = double(subs(g_sym, [state; parametri_simbolici.'], [zeros(4,1); valori_n
 %Q = diag([100, 500, 1, 1]);
 
 Q = zeros(4,4);
-Q(1,1) = 50;
+Q(1,1) = 10;
 Q(2,2) = 100 ;
 Q(3,3) = 1 ;
 Q(4,4)  = 1 ;
 
-R = 50; % R rappresenta la matrice di peso sull'azione del controllo 
+R = 1; % R rappresenta la matrice di peso sull'azione del controllo 
 % - R grande allora e piu costoso usare il controllo 
 % - R piccolo , il controllo diventa piu aggressivo 
 
 [K_lqr , P_lqr , ~ ] = lqr(A_lin, B_lin, Q, R);
 %% 4. BARRIERE (CBF)
 %barriera h per l'ostacolo
-k1 =25;
+k1 =10;
 
-r2 =x^2 +l^2 +d^2 - 2*x*l*sin(theta)-2*d*l*cos(theta);
+r2 =x^2 +l^2 +obs.d^2 - 2*x*l*sin(theta)-2*obs.d*l*cos(theta);
 r2_num = subs(r2 , parametri_simbolici , valori_numerici) ;
-h0_sym = r2_num - epsilon^2 ;
+h0_sym = r2_num - obs.epsilon^2 ;
 grad_h0_sym = gradient(h0_sym, state);
 h1_sym = dot(grad_h0_sym,f_num_sym)+k1*h0_sym ;
 grad_h1_sym = gradient(h1_sym,state);
@@ -82,9 +84,10 @@ grad_h1_fun = matlabFunction(grad_h1_sym, 'Vars', {state});
 
 
 %Barriera B per l'angolo critico
-a1 = 10; %a1 =80
+a1 = 10;
 
-theta_critico = atan(u_max / (9.81 * (valori_numerici(1) + valori_numerici(2))));
+%theta_critico = atan(u_max / (9.81 * (valori_numerici(1) + valori_numerici(2))));
+theta_critico = pi / 2 ;
 %b0_sym = theta_critico- sqrt(theta^2 + 1e-6);
 b0_sym = theta_critico^2 - theta^2;
 grad_b0_sym = gradient(b0_sym, state);
@@ -97,17 +100,21 @@ grad_b1_fun = matlabFunction(grad_b1_sym, 'Vars', {state});
 
 %% BARRIERA E ANGOLO
 
-y0 = [ - 2; 0 ; 0 ; 0] ;
-tstar = 15 ;
+initial_state = [ - 2; 0 ; 0 ; 0] ;
+tstar = 10 ;
 
 %Parametri CBF
-a2 = 20; 
-k2 = 50; % lower bound = 5 
+a2 = 10; 
+k2 = 15 ; % lower bound = 8 
 
-[tout , yout , u_out ] = cbf_obs_angle(y0, f_fun, g_fun, b1_fun, grad_b1_fun, h1_fun , grad_h1_fun , k2,a2, u_min, u_max, K_lqr, x_target_pos,tstar);
+[tout , yout , u_out ] = cbf_obs_angle(initial_state, f_fun, g_fun, b1_fun, grad_b1_fun, h1_fun , grad_h1_fun , k2,a2, u_min, u_max, K_lqr, x_target_pos,tstar);
 
+plot_pendolo(tout , yout ,u_out ,u_max,u_min,x_target_pos ,theta_critico , valori_numerici , obs )
 
-plot_pendolo(tout , yout ,u_out ,u_max,u_min,x_target_pos ,theta_critico , valori_numerici , epsilon ,d )
+%% SAFE SET PLOT 
+
+plot_safe_set(valori_numerici , obs , x_target_pos , initial_state )
+
 
 %% ANIMAZIONE PENDOLO
 
@@ -123,9 +130,12 @@ for i_frame = 1:10:i_end
     clf;
     cart_x   = yout(i_frame ,1 );  % Cart position
     pend_ang = yout(i_frame ,2 );  % Pendulum angle
-    IP_Animation(cart_x, pend_ang , d , epsilon,valori_numerici , x_target_pos); 
-    pause(0.001);
+    IP_Animation(cart_x, pend_ang , obs ,valori_numerici , x_target_pos , initial_state); 
+    pause(0.01);
 end
+
+
+
 
 %% ONLY OBSTACLE
 %{
@@ -163,25 +173,7 @@ tstar = 4 ;
 plot_pendolo(t_obs , y_obs ,u_out ,u_max,u_min,x_target_pos ,theta_critico , valori_numerici , epsilon ,d)
 
 %}
-%% SAFE SET 
 
 
-figure;
-% Definizione della funzione anonima h0(x, theta)
-% Parametri: l = 5; d = 3; epsilon = 0.1;
-% Formula: r^2 - epsilon^2
-mia = @(x, theta) x.^2 + 4^2 + 3^2 - 2*4*x.*sin(theta) - 2*4*3*cos(theta) - 0.01;
 
-% Plot della curva di livello 0 (il bordo dell'ostacolo nello spazio degli stati)
-fimplicit(mia, [-5 5 -pi/2 pi/2], 'LineWidth', 2, 'Color', 'r');
 
-grid on;
-xlabel('Posizione Carrello x [m]');
-ylabel('Angolo Pendolo \theta [rad]');
-title('Bordo del Safe Set Geometrico (h_0 = 0)');
-legend('Confine Ostacolo');
-
-% Aggiungi una linea per vedere dove sei tu adesso (es. x=-2, theta=0)
-%hold on;
-%plot(-2, 0, 'bo', 'MarkerFaceColor', 'b');
-%text(-2, 0.2, ' Start');

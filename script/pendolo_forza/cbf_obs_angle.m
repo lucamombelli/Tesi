@@ -30,7 +30,7 @@ for n=1:length(tspan)-1
     y_des = [x_tgt;0;0;0];
     u_nom = - K * (x_curr - y_des) ;
 
-    H = diag([1e-2,1e12,1e14]);
+    H = diag([1e-1,1e12,1e14]); % Peso se non volgiamo un'hard costrain e' 1e12
     f_qp = [ -u_nom ; 0 ; 0 ];
     A = [ -Lg_h1 , -1  , 0   ;
         -Lg_b1, 0 , -1   ];
@@ -43,10 +43,8 @@ for n=1:length(tspan)-1
     [z, ~, flag] = quadprog(H, f_qp, A, b, [], [], lb, ub, [], options);
 
     if flag == -2
-        fprintf('Problem Infeasible at %f \n' , tspan(n));
-        counter_inf = counter_inf + 1;
-        A 
-        b 
+        error('Problem Infeasible at %f \n' , tspan(n));
+        %counter_inf = counter_inf + 1; 
     %{
         K_brake = K;
         target_here = [x_curr(1); 0; 0; 0]; % Target = Dove sono ora
@@ -68,7 +66,7 @@ for n=1:length(tspan)-1
     if flag == -8 
         counter_no_direction = counter_no_direction + 1 ; 
         %fprintf("Unable to compute a step direction \n")
-        fprintf("%f\n at time %i",z(1),tspan(n));
+       % fprintf("%f at time %i \n",z(1),tspan(n));
     end
 
 end
@@ -83,9 +81,6 @@ if(counter_no_direction ~= 0)
 else
     fprintf("Senza problemi! ( No unable to compute ) \n");
 end
-
-
-
 tout = tspan ;
 yout = yout.';
 end
