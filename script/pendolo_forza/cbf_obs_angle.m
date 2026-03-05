@@ -29,6 +29,7 @@ for n=1:length(tspan)-1
 
     y_des = [x_tgt;0;0;0];
     u_nom = - K * (x_curr - y_des) ;
+    %u_nom = -K *x_curr 
 
     H = diag([1e-1,1e12,1e14]); % Peso se non volgiamo un'hard costrain e' 1e12
     f_qp = [ -u_nom ; 0 ; 0 ];
@@ -44,16 +45,6 @@ for n=1:length(tspan)-1
 
     if flag == -2
         error('Problem Infeasible at %f \n' , tspan(n));
-        %counter_inf = counter_inf + 1; 
-    %{
-        K_brake = K;
-        target_here = [x_curr(1); 0; 0; 0]; % Target = Dove sono ora
-        u_brake = -K_brake * (x_curr - target_here);
-
-
-        u_emergency = max(u_min, min(u_max, u_brake));
-        u_applied(:,n) = u_emergency;
-    %}
     else
         u_applied(:,n) = z(1);
         % Avvisa se le slack sono attive
@@ -61,7 +52,12 @@ for n=1:length(tspan)-1
             %fprintf('Slack attive: [%.4f, %.4f] @ t=%.3f\n', z(2), z(3), tspan(n));
         end
     end
+
+    f(:,1) = f_val + g_val*u_applied(:,n) ; 
+    f(:,2) = f_fun(dt*2/3*f(:,1)) + g_fun(dt*2/3*f(:,1))*u_applied(:,n) ; 
+
     yout(:,n+1) = yout(:,n)+ dt * (f_val + g_val*u_applied(:,n)) ;
+     %yout(:,n+1) = yout(:,n)+ dt * (1/4 *f(:,1) + 3/4*f(:,2)) ;
     
     if flag == -8 
         counter_no_direction = counter_no_direction + 1 ; 

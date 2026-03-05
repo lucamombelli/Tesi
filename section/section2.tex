@@ -64,6 +64,47 @@ L_f h(x) + L_g h(x) u  \geq 0
  \end{es}
  
  
+ \subsection{Inverted Pendulum}
+ Equazioni del moto 
+
+
+ 
+ \[
+ \begin{cases}
+ 	ml^2 \ddot{\theta} - m \ddot{x} l \cos(\theta) - mgl\sin(\theta) = 0  \\
+ 	(M+m)\ddot{x} - ml \ddot{\theta}\cos(\theta) +ml\dot{\theta}^2\sin(\theta)= u
+ \end{cases}
+ \]
+ 
+ 
+ \subsubsection{crticial Angle}
+ After some calculations we obtain : 
+ \[\ddot{\te} = \frac{-m\cos(\te)\sin(\te)\dot{\te}^2}{(M+m\sin(\te)^2} + u\frac{\cos(\te)}{l(M+m\sin(\te)^2)} + \frac{(M+m)g\sin(\theta)}{l(M+m\sin(\te)^2)}\]
+We can rewrite by defining the function 
+\begin{align*}
+	g(\te) &= \frac{\cos(\te)}{l(M+m\sin(\te)^2)} \\
+	h(\theta , \dot{\te} , u ) &= lm\dot{\te}^2 - \frac{u + g(M+m)\tan(\te)}{\sin(\te)} \\
+	\ddot{\te} &= - \sin(\theta) g(\te)  h(\te,\dot{\te},u) 
+\end{align*}
+We want to prove that there exist a crtical anglie $\te_c \in ]-\pi/2 , \pi/2[$ . We note that $g(\te) > 0 \forall \te \in ] -\pi/2 , pi/2 [$ , so if we want the accelator the have the opposite sign of $\te$ we nedd to garantee that $h(\te , \dot{\te} , u) \geq 0 $
+\begin{align*}
+	lm\dot{\te}^2 - \frac{u + g(M+m)\tan(\te)}{\sin(\te)} \geq 0  \\
+	lm\dot{\te}^2 \geq  \frac{u + g(M+m)\tan(\te)}{\sin(\te)}   \\
+	\text{Now we take the Infimum} (\dot{\te} = 0 )\\
+	\frac{u + g(M+m)\tan(\te)}{\sin(\te)} \leq 0	
+\end{align*} 
+ We now have two cases
+ \begin{itemize}
+ \item $\sin(\te) > 0 $ -> $\tan(\te) \geq -\frac{u_{min}}{g(M+m)}$
+ \item $\sin(\te)<0$ -> $\tan(\te) \leq -\frac{u_{max}}{g(M+m)} $
+ \end{itemize}
+ so we obtain 
+ \[\atan(-\frac{u_{max}}{g(M+m)} )\leq \theta \leq \atan(-\frac{u_{min}}{g(M+m)} )\]
+
+ 
+ 
+ 
+ 
  
  
  
