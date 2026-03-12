@@ -2,7 +2,7 @@ function [tout,xout,u_applied] = IP_simulation(X, f_fun, g_fun, b1_fun, grad_b1_
                                                h1_fun , grad_h1_fun , k2, a2, u_min, u_max, K, xg, Tf)
     
     % Parameters
-    dt = 0.001;  % time-step
+    dt = 0.00001;  % time-step
     tVec = 0:dt:Tf;  % time vector
     xout = zeros(4,numel(tVec));  % memory preallocation
     u_applied  = zeros(1,numel(tVec));  % memory preallocation

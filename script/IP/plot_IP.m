@@ -29,6 +29,8 @@ function plot_IP(tout, xout, u_out, u_max, u_min, xG, theta_crit, numerical_para
     %yline(u_max,'r--'); yline(u_min,'r--');
     xline(tout(j_obs),'r--','Obstacle Center')
     grid on; ylabel('u [N]'); xlabel('Time [s]');
+    xlim([0,8])
+    ylim([-4,4])
     title('Optimal control')
     
     if(~j_target)

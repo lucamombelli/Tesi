@@ -108,11 +108,11 @@ end
 % d = 1 works with gamma_1 = gamma_2 = 8-25 and epsilon = 0.1 - 0.49
 % d = 0.9 works with gamma_1 = gamma_2 = 10-   and epsilon = 
 obs.height = 1; % height
-obs.radius = 0.1; % radius
+obs.radius = 10^(-2); % radius
 
 %% System dynamics 
-u_max = 500;  % lower bound
-u_min = -500;  % upper bound
+u_max = inf;  % lower bound
+u_min = -inf;  % upper bound
 
 [sysfunStruct,state,sym_par,sys_par] = system_dynamics();
 
@@ -147,7 +147,7 @@ b1_fun = cbfThetaStruct.theta_cons;  % constraint function (critic theta)
 grad_b1_fun = cbfThetaStruct.theta_cons_gradient;  % constraint gradient (critic theta)
 
 %% Simulation loop
-x0 = -4;  % initial cart position
+x0 = -3;  % initial cart position
 xg = 4;  % target cart position
 X0 = [x0, 0, 0, 0]';  % initial state
 Tf = 8;  % final time [s]

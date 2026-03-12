@@ -1,4 +1,5 @@
-\section{Control Barrier Function}
+\chapter{Control Barrier Function}
+
 Le control barrier function traggono ispirazione dalle control Lyapunov function , che rappresentano l'estensione al controllo delle funzioni di Lyapunov . Allo stesso modo le CBF sono l'estensione al controllo della funzioni di barriera , utilizzate in ottimizzazione.  Lo scopo principale delle CBF è definire un sottoinsieme  invariante in avanti , ossia un insieme per cui ogni traiettoria che parte da esso rimane al suo interno per ogni tempo futuro . Inoltre sono molto utili nella sintesi di controllori che ci permettono di rimanere nel sottoinsieme. \\
 Consideriamo il sistema dinamico non lineare affine al controllo 
 \begin{equation}
@@ -64,20 +65,30 @@ L_f h(x) + L_g h(x) u  \geq 0
  \end{es}
  
  
- \subsection{Inverted Pendulum}
- Equazioni del moto 
-
-
- 
+ \subsection{Pendolo Inverso}
+  Equazioni del moto 
  \[
  \begin{cases}
  	ml^2 \ddot{\theta} - m \ddot{x} l \cos(\theta) - mgl\sin(\theta) = 0  \\
  	(M+m)\ddot{x} - ml \ddot{\theta}\cos(\theta) +ml\dot{\theta}^2\sin(\theta)= u
  \end{cases}
  \]
+ \[
+ \begin{cases}
+ 	\ddot{x} = \frac{u + m \sin(\theta) \left( g \cos(\theta) - l \dot{\theta}^2 \right)}{M + m \sin^2(\theta)} \\[12pt]
+ 	\ddot{\theta} = \frac{(M + m)g \sin(\theta) - m l \dot{\theta}^2 \sin(\theta) \cos(\theta) + u \cos(\theta)}{l \left( M + m \sin^2(\theta) \right)}
+ \end{cases}
+ \]
+ We find that the equilibrium point are in the form $(x,\te , u) = (x ,0 , 0)$
  
- 
- \subsubsection{crticial Angle}
+ \begin{figure}[h!]
+ 	\centering
+ 	\includegraphics[scale=0.5]{immagini/pendolo.pdf}
+ 	\caption{Schema del sistema carrello-pendolo inverso.}
+ 	\label{fig:pendolo}
+ \end{figure}
+
+ \subsubsection{Angolo Critico}
  After some calculations we obtain : 
  \[\ddot{\te} = \frac{-m\cos(\te)\sin(\te)\dot{\te}^2}{(M+m\sin(\te)^2} + u\frac{\cos(\te)}{l(M+m\sin(\te)^2)} + \frac{(M+m)g\sin(\theta)}{l(M+m\sin(\te)^2)}\]
 We can rewrite by defining the function 
@@ -86,7 +97,7 @@ We can rewrite by defining the function
 	h(\theta , \dot{\te} , u ) &= lm\dot{\te}^2 - \frac{u + g(M+m)\tan(\te)}{\sin(\te)} \\
 	\ddot{\te} &= - \sin(\theta) g(\te)  h(\te,\dot{\te},u) 
 \end{align*}
-We want to prove that there exist a crtical anglie $\te_c \in ]-\pi/2 , \pi/2[$ . We note that $g(\te) > 0 \forall \te \in ] -\pi/2 , pi/2 [$ , so if we want the accelator the have the opposite sign of $\te$ we nedd to garantee that $h(\te , \dot{\te} , u) \geq 0 $
+We want to prove that there exist a crtical anglie $\te_c \in ]-\pi/2 , \pi/2[$ . We note that $g(\te) > 0  \quad \forall \te \in ] -\pi/2 , \pi/2 [$ , so if we want the acceleration the have the opposite sign of $\te$ we need to guarantee that $h(\te , \dot{\te} , u) \geq 0 $
 \begin{align*}
 	lm\dot{\te}^2 - \frac{u + g(M+m)\tan(\te)}{\sin(\te)} \geq 0  \\
 	lm\dot{\te}^2 \geq  \frac{u + g(M+m)\tan(\te)}{\sin(\te)}   \\
@@ -95,11 +106,19 @@ We want to prove that there exist a crtical anglie $\te_c \in ]-\pi/2 , \pi/2[$ 
 \end{align*} 
  We now have two cases
  \begin{itemize}
- \item $\sin(\te) > 0 $ -> $\tan(\te) \geq -\frac{u_{min}}{g(M+m)}$
- \item $\sin(\te)<0$ -> $\tan(\te) \leq -\frac{u_{max}}{g(M+m)} $
+ \item $\sin(\te) > 0 $ 
+ \begin{align*}
+ 	u_{min} \leq u &\leq -g(M+m)\tan(\te)\\
+ 	\tan(\te) &\leq \frac{-u_{min}}{g(M+m)}
+ \end{align*}
+ \item  $\sin(\te) < 0 $ 
+  \begin{align*}
+ 	u_{max} \geq u & \geq -g(M+m)\tan(\te)\\
+ 	\tan(\te) &\geq \frac{-u_{max}}{g(M+m)}
+ \end{align*}
  \end{itemize}
  so we obtain 
- \[\atan(-\frac{u_{max}}{g(M+m)} )\leq \theta \leq \atan(-\frac{u_{min}}{g(M+m)} )\]
+ \[\arctan(-\frac{u_{max}}{g(M+m)} )\leq \theta \leq \arctan(-\frac{u_{min}}{g(M+m)} )\]
 
  
  
