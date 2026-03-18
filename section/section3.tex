@@ -48,8 +48,36 @@ then $\omega = \omega_1 \omega_2$ is also admissible for $x$ and $\phi(\mu, \sig
 \noindent \framebox{\textbf{identity}} For each $\sigma \in \mathcal{T}$ and each $x \in X$, the empty sequence $\diamond \in \mathcal{U}^{[\sigma, \sigma)}$ is admissible for $x$ and $\phi(\sigma, \sigma, x, \diamond) = x$. \hfill $\square$
 \end{definizione}
 \begin{definizione}
+	Let $\mathcal{X}$ be an open subset of $\mathbb{K}^n$ and let $\mathcal{U}$ be a metric space. A \textbf{right hand side} with respect to $\mathcal{X}$ is a function 
+	\[ f : \R \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{K}^n\]
+	which can be obtained in the following way : There must exist another metric space $S$ as well as maps 
+	\[\tilde{f} : S \times \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{K}^n\] and 
+	\[ \pi : \R \rightarrow S\]
+	so that \[f(t , x , u) = \tilde{f}(\pi(t) , x , u )\] 
+	and the following properties hold : 
+	\begin{itemize}
+		\item $\tilde{f}(s , \cdot , u) $ is of class $C^1$ for each fixed s,u 
+		\item both $\tilde{f}$ and the partial derivative $\tilde{f}_x$ are continuos on $S \times \mathcal{X} \times \mathcal{U} $
+		\item $\pi$ is a mueasurable locally essentially bounded function
+	\end{itemize}
+\end{definizione}
+For $f$ independent of $t$ , the definition reduces to the requirement that $U$ be a metric space and 
+$$f : \mathcal{X} \times \mathcal{U} \rightarrow \mathbb{K}^n$$ 
+and \[f \quad \text{and} \quad f_x \quad \text{are continuos on} \quad \mathcal{X} \times \mathcal{U}\]
+
+\begin{definizione}
+	Let $k = 1 , 2 , \dots , \infty $ . A \textbf{continuos-time system of class} $C^(k)$ is one for which $U$ is an open subset of $K^m$ , for some nonnegative integer  m , and for which S and $\tilde{f}$ can be chosen so that $S$ is an open subset of a Euclidean space and $\tilde{f}$ is of class $C^k$  
+\end{definizione}
+\begin{prop}
+	if $\Sigma$ is either a continuous-time system , or a discrete system of class $C^0$ , then $\Sigma$ is topological when $\mathcal{X}$ is given the induced topologu of $\R^n$
+\end{prop}
+\begin{definizione}
 	The system $\Sigma$ is locally controllable in time T at the equilibrium state x if and only if for every neighborhood $\mathcal{V} $ of x there is another neighboord $\mathcal{W}$ of x , such that , for any pair of elements z , y in W , z can be controlled to y inside $\mathcal{V}$ in time T 
 \end{definizione}
+Recall the notion of equilibrium state $x \in \mathcal{X}$; for a time-invariant system, this is equivalent to the requirement that there exists a $u \in \mathcal{U}$ such that for all $T \in \mathcal{T}_+$, $\phi(T,0,x,\omega) = x$, where $\omega \equiv u$. For discrete-time systems this is equivalent to
+$$ \mathcal{P}(x,u) = x $$
+and for continuous-time systems to
+$$ f(x,u) = 0 \,. $$
 \begin{teo}{}{}
  Assume that $\Sigma$ is a continuos-time system of class $C^1$ . Then , 
  \begin{enumerate}
@@ -62,4 +90,114 @@ We now define the controllabilty of a linear sisystem
 	The n-dimensionale continuos and invariant time  linear system $\Sigma$ is controllable if and only if $rank R(A,B) = n  $ where 
 	\[R(A,B) = [ B , AB,A^2B,\dots , A^{n-1}B]\]
 \end{teo}
+\subsection{Inverse Pendulum}
+We denoted  with $ P = (P_x , P_y) = (x - l \sin(\theta) , l \cos(\te) )  $ the coordinates of the pendulum  and with $d = (d_x , d_y)$ the coordinates of the center of the obstacle of radius $\epsilon$ . The state vector is $z = [ x , \te , \dot{x} , \dot{\te}] $
+\begin{align*}
+	h_0(z) &= (x-l \sin(\theta)-d_x) ^2 + (l \cos(\theta) - d_y)^2 - \epsilon^2 \\ 
+	&= x^2 + l^2 \sin^2(\te) -d_x^2 - 2xl\sin(\te) - 2 x d_x + 2 d_x l\sin(\te) + \\
+	&+ l^2 \cos^2(\te) + d_y^2 - 2 d_y l \cos(\te) - \epsilon^2 \\
+	& = x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) ) - \epsilon^2
+\end{align*}
+We compute 
+\begin{align*}
+	\nabla h _0(z) = 
+	\begin{bmatrix}
+		2x - 2l sin(\te) -2 d_x \\
+		-2(x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te) ) \\	
+		0 \\ 
+		0 
+	\end{bmatrix}
+\end{align*}
+Then we need to compute the term 
+\begin{align*}
+	&\nabla h_0 \cdot(f+gu)  =  \\ 
+	&= \begin{bmatrix}
+		2x - 2l sin(\te) -2 d_x \\
+		-2(x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te) ) \\	
+		0 \\ 
+		0 
+	\end{bmatrix} \cdot \left( \begin{bmatrix} 
+	v_x \\ 
+	v_\theta \\ 
+	\frac{m \sin(\theta) (g \cos(\theta) - l v_\theta^2)}{M + m \sin^2(\theta)} \\ 
+	\frac{(M+m)g \sin(\theta) - m l v_\theta^2 \sin(\theta)\cos(\theta)}{l(M + m \sin^2(\theta))} 
+	\end{bmatrix} + \begin{bmatrix} 
+	0 \\ 
+	0 \\ 
+	\frac{1}{M + m \sin^2(\theta)} \\ 
+	\frac{\cos(\theta)}{l(M + m \sin^2(\theta))} 
+	\end{bmatrix}u\right)\\
+	&= v_x(2x - 2l sin(\te) -2 d_x) - 2 v_{\te} (x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te))
+\end{align*}
+and we obtain 
+\begin{align*}
+	h_1 &=  \dot{h_0} + k_1 h_0  \quad k_1 \in \R\\
+	& = \nabla h_0 \cdot(f+gu) + k_1 h_0  \\
+	&  = v_x(2x - 2l sin(\te) -2 d_x) - 2 v_{\te} (x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te)) + \\ &+ k_1 ( x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) )) - \epsilon^2
+\end{align*}
+Now we define the safe set as 
+$S = {S_1 \cap S_2 
+}$ where 
+\begin{align*}
+	S_1 &= \{z \in R^4 \ | \ h_0(z) \geq 0 \} \\
+	& = \{z \in R^4 \ | \   x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) ) \geq \epsilon^2 \} \\
+\end{align*}
+\begin{figure}[h]
+	\centering 
+	\includegraphics[width=0.7\linewidth]{immagini/obstacle_cbf.pdf}
+	\caption{The safe set $S_1$  colored in green}
+\end{figure}
+\begin{align*}
+  S_2 &= \{z \in R^4 \ | \ h_1(z) \geq 0 \} \\ 
+   & = \{ z \in R^4 \ | \  v_x(2x - 2l sin(\te) -2 d_x) - 2 v_{\te} (x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te)) + \\ &+ k_1 ( x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) )) \geq \epsilon^2\}
+\end{align*}
 
+We also have definied another control barrier function 
+$b_0(z) = \te_{cri}^2 - \theta ^ 2 $  . We need to compute the gradient and the term $dot(b_0) $in this case 
+\begin{align*}
+	\nabla b_0 &= 
+	\begin{bmatrix}
+		0 \\
+		-2 \te \\
+		0 \\ 
+		0\\
+	\end{bmatrix} \\
+	\nabla b_0 \cdot (f+gu) &= \\
+	&=   \begin{bmatrix}
+		0 \\
+		-2 \te \\
+		0 \\ 
+		0\\
+	\end{bmatrix}   \cdot  \left( \begin{bmatrix} 
+	v_x \\ 
+	v_\theta \\ 
+	\frac{m \sin(\theta) (g \cos(\theta) - l v_\theta^2)}{M + m \sin^2(\theta)} \\ 
+	\frac{(M+m)g \sin(\theta) - m l v_\theta^2 \sin(\theta)\cos(\theta)}{l(M + m \sin^2(\theta))} 
+	\end{bmatrix} + \begin{bmatrix} 
+	0 \\ 
+	0 \\ 
+	\frac{1}{M + m \sin^2(\theta)} \\ 
+	\frac{\cos(\theta)}{l(M + m \sin^2(\theta))} 
+	\end{bmatrix}u\right) \\
+	&= -2 v_\te \te 
+\end{align*}
+Then we can define 
+$$ b_1 =-2 v_\te \te  + alpha_1 (\te_{cri}^2 - \theta ^ 2 ) $$ 
+The safe set in this caso is given by $B = B_1 \cap B_2 $
+
+$$	B_1= \{z \in \R^4 \ | \  \te_{cri}^2 \geq \theta ^2\} $$
+\begin{figure}[h]
+	\centering 
+	\includegraphics[width=0.7 \linewidth]{immagini/angle_cbf.pdf}
+	\caption{The set $B_1$  colored in green }
+\end{figure}
+
+$$	B_2   = \{ z \in \R^4 \ | \ -2 v_\te \te  +\alpha_1 (\te_{cri}^2 - \theta ^ 2 )\geq  0  \}$$
+\begin{figure}[h]
+	\centering 
+	\includegraphics[width=0.7 \linewidth]{immagini/angle_velocities_cbf.pdf}
+	\caption{The set $B_2$ colored in green with $\alpha_1 = 40 $}
+\end{figure}
+\newpage
+The Final boss is 
+$ C = S \cap $  which i refused to write 

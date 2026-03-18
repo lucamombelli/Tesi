@@ -108,7 +108,7 @@ end
 % d = 1 works with gamma_1 = gamma_2 = 8-25 and epsilon = 0.1 - 0.49
 % d = 0.9 works with gamma_1 = gamma_2 = 10-   and epsilon = 
 obs.height = 1; % height
-obs.radius = 10^(-2); % radius
+obs.radius = 10^(-1); % radius
 
 %% System dynamics 
 u_max = inf;  % lower bound
@@ -212,7 +212,7 @@ if(sim == 1)
     end
 end
 
-
+plot_safe_set(sys_par, obs, xg, X0)
 
 
 

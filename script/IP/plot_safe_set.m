@@ -2,14 +2,15 @@ function plot_safe_set(parameters, obs, xG, x0)
     
     % Parameters
     l = parameters(3);
-    d = obs.height;
+    dy = obs.height;
     eps = obs.radius;
+    dx = 0 ;
     
     figure;
     hold on;
     
     % h0(x1,x2) definition
-    h0 = @(x1, x2) x1.^2 + l^2 + d^2 - 2*l*x1.*sin(x2) - 2*d*l*cos(x2) - eps^2;
+    h0 = @(x1, x2) x1.^2 + l^2 + dy^2 + dx^2 -2*x1*dx + 2*dx*l*sin(x2) - 2*l*x1.*sin(x2) - 2*dy*l*cos(x2) - eps^2;
     fimplicit(h0,[x0(1)-1,xG+1,-pi/2,pi/2],'LineWidth',2,'Color','r');
     
     grid on;
