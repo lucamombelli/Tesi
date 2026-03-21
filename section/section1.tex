@@ -1,10 +1,12 @@
-	\section{Teorema di Nagumo}
-Introduciamo il Teorema di Nagumo , secondo la formulazione presentata in \cite{VT} , che rappresenta una degli elementi fondamentali per trattare le Control Barrier function 
+\chapter{Control Barrier Function}
+
+\section{Nagumo's Theorem}
+We presented Nagumo's Theorem following   \cite{VT} , which is one of the fundamental building blocks for control barrier function
 \begin{definizione}
-	Sia K un sottoinsieme di uno spazio vettoriale finito dimensionale (oppure di uno spazio normato) X . Diciamo che una funzione $x (\cdot) : [0,T] \rightarrow X$ è \textit{viable} in K su $[0,T]$ se 
+Let K be a subset of a finite dimensional vector-space (or even a normed space) X . We shall say that a function $x (\cdot) : [0,T] \rightarrow X$ is \textit{viable} in K on $[0,T]$ if 
 	$$\forall t \in [0,T] \ , \ \ x(t) \in K$$ 
 \end{definizione}
-Consideriamo il seguente problema di Cauchy 
+Consider 
 \begin{equation}
 	\label{diff:1}
 	\begin{cases}
@@ -14,26 +16,30 @@ Consideriamo il seguente problema di Cauchy
 \end{equation}
 con $f : \Omega \subset_{\text{op}} X \rightarrow X$ 
 \begin{definizione}
-	Sia un sottoinsieme di $\Omega$. 
-	Diciamo che K è\textit{ locally viable} sotto $f$ se per ogni condizione iniziale $x_0 \in K $ , esiste un $T > 0$ e una soluzione viable su $[0,T]$  per l'equazione differenziale \ref{diff:1} con condizione iniziale $x_0$\\
-	K è (globalmente) viable sotto f se possiamo sempre prendere $T= \infty$ 
+	Let K be a subset of  $\Omega$. 
+We shall say that K is \textit{ locally viable} under $f$ (or enjoys the local viability propery for the map $f$) if for any initial state  $x_0 \in K $ , there exists $T > 0$ and  a viable solution  su $[0,T]$  to the differential equation \ref{diff:1} with initial condition $x_0$. 
+It is said to be globally viable under $f$  if we can always take $T= \infty$ \ 
+The subset K is said to be invariant under $f$ if for any initial state $x_0$ of K , all solutions to the differential equation  \ref{diff:1} are viable in K 
 \end{definizione}
-\begin{definizione}[Cono Tangente di Bouligand]
-	Sia X uno spazio normato , K un sottoinsieme non vuoto di X e sia x un elemento di K . Il cono tangente a K in x è l'insieme
+The concept of invariance depends upon the behavior of f on the domain $\Omega$ outside $K$ . But we observe that viability property depends only on the behavior of f on K 
+\begin{definizione}[ Bouligand Contingent cone]
+	Let X be a normed space , K be a nonempty subset of X and x belong to K . The contingent cone to K at x is the set
 	$$T_K(x)= \{v \in X \ | \ \liminf_{h\rightarrow 0^+ }\frac{d_K(x+hv)}{h}=0\}$$
-	con $d_k(x):= \inf_{y \in K } \norm{x-y}$
+	where $d_k(x):= \inf_{y \in K } \norm{x-y}$
 \end{definizione}
-Una definizione alternativa utilizza le successioni : \\
-v appartiene a $T_K(x)$ se e solo se esiste una successione $h_n >0$ $h_n \rightarrow 0^+$ e una successione $v_n \in X$ , $v_n \rightarrow v $ tale che 
+In other worlds , v belongs to
+$T_K(x)$ if and only if exist a sequence of  $h_n >0$ $h_n \rightarrow 0^+$ and a sequence $v_n \in X$ , $v_n \rightarrow v $ such that
 $$\forall n \in \mathbb{N} \ , \ x+h_nv_n \in K $$
-Il cono tangente a K nel punto x si può anche indicare con $T(K,x)$. 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{immagini/ct}
-	\caption{Due esempi di cono tangente (\cite{Jahn2020})}
+	\includegraphics[width=0.8\linewidth]{immagini/tangent_cone}
+	\caption{
+	Contingent Cone when : (a) $x^\star$ is an interior point , (b)  $x^\star$ is on a smooth boundary , (c)  $x^\star$ is on a non smooth boundary , (d) for two distinct points $x_1^\star$ and $x_2^\star$ of the intersection $S_1 \cap S_2 $
+	}
 	\label{fig:ct}
 \end{figure}
-Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi se l'insieme K è aperto ($K=K^0$) allora $\forall x \in K \ , \ T_k(x)=X$ . Saremmo quindi principalmente interessati a definire il cono tangente per punti appartenenti alla frontiera del'insieme K . È importate sottolineare che può succedere che il cono tangente ad un punto di frontiera sia tutto lo spazio .
+We see that  $\forall x \in Int(K) , \quad T_K(x)=X$. Therefore , when K is open , the contingent cone to K at any point $x in K$ is always equal to the whole space. Therefore we will be mostly interested in defining the contingent cone for point in the boundary of K . In any case the contingent cone of a point x in the boundary can be the whole space
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{immagini/ct_all}
@@ -41,77 +47,92 @@ Osserviamo che se x è un punto interno dell'insieme K allora $T_K(x)=X$. Quindi
 	\label{fig:ct_all}
 \end{figure}
 \begin{lemma}
-	Sia $x: [0,T] \rightarrow K $ una funzione differenziabile e viable , allora 
+Let  $x: [0,T] \rightarrow K $ be a differentiable viable function 
 	$$\forall t \in [0,T) \ \ x'(t) \in T_K(x)$$
 \end{lemma}
 \begin{definizione}[Viability Domain]
-	Sia  k un sottoinsieme di  $\Omega$. Diciamo che k è  un viability domain della mappa $f : \Omega \rightarrow X$ se 
+	Let K be a subset of  $\Omega$. We shall say that K is a viability domain of the map  $f : \Omega \rightarrow X$ se 
 	$$\forall x \in X  \ \ , \ \ f(x) \in T_K(x)$$
 \end{definizione}
 \begin{teo}{Nagumo}{}
 	\label{teo:1}
-	Supponiamo che il sottoinsieme K sia localmente compatto e che la funzione $f : K \rightarrow X$ sia continua . \\ Allora K è \textit{ localmente viable  } sotto f  se e solo K è un \textit{viability domain} della mappa f 
+	Let us assume that 
+	\begin{enumerate}
+		\item K is locally compact
+		\item f is continuous from K to X 
+	\end{enumerate} 
+	The K is locally viable under f if and only if K is viability domain of f 
 \end{teo}
 \begin{es}
-	Sia $K \subset \R \ , \ K =[-2,2]$ e sia $\dot{x}(t)=x(t)$. K è un intervallo chiuso e limitato , quindi compatto  ,  inoltre la funzione x è continua , quindi le ipotesi del teorema sono rispettate . Controlliamo se K è un viability domanin . Sappiamo che se $x \in (2,2)$ allora $T_K(x) = \R$ , analizziamo ora i due punti di frontiera : 
+	Let $K \subset \R$, with $K = [-2, 2]$, and $\dot{x}(t) = x(t)$. $K$ is a bounded and closed interval, therefore $K$ is compact. Moreover, the function is continuous, therefore the hypotheses of the theorem are satisfied. Let's check whether $K$ is a \textit{viability domain}. We know that if $x \in (-2, 2)$, then $T_K(x) = \R$. Now let's analyze the two boundary points:
+	
 	\begin{itemize}
-	\item  Se $x=2 \rightarrow f(x)=2 $ . Il cono tangente rappresenta le direzioni in cui posso muovermi senza uscire da K . In questo caso  posso unicamente muovermi verso sinistra quindi ottengo $T_K(2)= (-\infty , 0]$
-	\item Facendo un ragionamento simile  a quello precedente ottengo $T_K(-2)= [0 , +\infty )$
-	\end{itemize} 
-	Vediamo che per entrambi i punti di frontiera otteniamo  $ f(x)\notin T_K(x) $ quindi   K non è viability domain per f . \\
-	Prendiamo , ora l'intervallo $K=(-\infty , 0] $ , in questo caso il sottoinsieme non è compatto ma localmente compatto , poichè è un sottoinsieme di un insieme localmente compatto , lo spazio euclideo . \\Come prima se prendiamo $x \in (-\infty , 0 )$ otteniamo $T_k(x)=\R$ . Passiamo  ora a studiare il punto $x=0$ per cui otteniamo  $f(0)=0$ , invece il cono tangente nel punto zero è $T_k(0)= (-\infty , 0]$  . Possiamo osservare che $f(0) \in T_x(0)$ e quindi in generale K è un viabilty domain e quindi locally viable 
+		\item If $x = 2 \rightarrow f(x) = 2$. The tangent cone represents the directions in which I can move without exiting $K$. In this case, I can only move to the left, so I obtain $T_K(2) = (-\infty, 0]$.
+		\item Following a reasoning similar to the previous one, We obtain $T_K(-2) = [0, +\infty)$.
+	\end{itemize}
+	
+	We can see that for both boundary points we obtain $f(x) \notin T_K(x)$, therefore $K$ is not a viability domain for $f$.
+	
+	Now, let's consider the interval $K = (-\infty, 0]$. In this case, the subset is not compact but locally compact, since it is a closed subset of a locally compact space, the Euclidean space. As before, if we take $x \in (-\infty, 0)$, we obtain $T_K(x) = \R$. Let's now move on to study the point $x = 0$, for which we obtain $f(0) = 0$; instead, the tangent cone at the point zero is $T_K(0) = (-\infty, 0]$. We can observe that $f(0) \in T_K(0)$, therefore $K$ is a viability domain, and hence locally viable.
 \end{es}
+
 \begin{es}
 	\label{es:1.2}
-	Sia $K \subset \R^2 \ , \ K=\{(x,y)\in \R^2|x^2+y^2-5 \leq 0\} = \{(x,y)\in \R^2|g(x,y )\leq 0 \} $ e prendiamo $f(x,y)= ( x , y^2)$.K è un sottoinsieme  compatto e f è un campo vettoriale continuo . Sappiamo che per $x \in K^0 \rightarrow T_K(x)=\R^2$ . Occupiamoci  ora dei punti $x \in \partial K $ , quindi che appartengo alla curva di livello $f^{-1}(5)=\{(x,y)\in \R^2\ | \ x^2 +y^2 = 5 \}  $. In questo caso la curva è differenziale e possiamo definire il cono tangente attraverso rette tangenti infatti 
-	$$T_k(x_0) =\{v \in X | g(x_0) + \grad g(x_0) \cdot v \leq 0 )\} $$
-	Oppure possiamo utilizzare il fatto che il gradiente di g sia sempre perpendicolare ad una curva di livello di g e che esso rappresenti la direzione di massima crescita 
-	$$T_k(x_0)  = \{v \in X  | \grad g (x_0) \cdot v \leq 0  \} $$ . 
-	Proviamo a calcolare la condizione di appartenenza al cono tangente 
-\begin{align*}
-		\grad{g(x)} f(x) &= (2x , 2y)( x , y^2)^T \\
-		&= 2x^2 + 2y^3  \leq 0 \\
-		y & \leq  - x^{\frac{2}{3}}
-\end{align*}
+	Let $K \subset \R^2$ be given by $K = \{(x,y) \in \R^2 \mid x^2 + y^2 - 5 \leq 0\} = \{(x,y) \in \R^2 \mid g(x,y) \leq 0\}$, and let us consider the vector field $f(x,y) = (x, y^2)$. $K$ is a compact subset and $f$ is a continuous vector field. 
+	
+	We know that for interior points $x \in K^\circ$, the tangent cone is $T_K(x) = \R^2$. Let us now consider the boundary points $x \in \partial K$, which belong to the level curve $g^{-1}(0) = \{(x,y) \in \R^2 \mid x^2 + y^2 = 5\}$. In this case, the boundary curve is differentiable, and we can define the tangent cone using tangent lines. Indeed,
+	$$T_K(x_0) = \{v \in \R^2 \mid g(x_0) + \nabla g(x_0) \cdot v \leq 0 \}$$
+	%Alternatively, using the fact that the gradient of $g$ is always orthogonal to its level curves and points in the direction of maximum increase, we have:
+	$$T_K(x_0)  = \{v \in \R^2 \mid \nabla g(x_0) \cdot v \leq 0 \}$$
+	
+	Let us compute the condition for the vector field to belong to the tangent cone at the boundary:
+	\begin{align*}
+		\nabla g(x) \cdot f(x) &= (2x, 2y) \cdot (x, y^2) \\
+		&= 2x^2 + 2y^3 \leq 0 \\
+		&\implies y \leq -x^{\frac{2}{3}}
+	\end{align*}
+	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\linewidth]{immagini/circonferenza}
-		\caption{Esempio \ref{es:1.2}(a) }
+		\caption{Example \ref{es:1.2}(a)}
 		\label{fig:circonferenza} 
-	\end{figure}\\
-Infatti usando come punto $x_0= (0- , \sqrt{5})$
-\begin{align*}
-	f(x_0) & = (0 , 5) \\
-	g(x_0) &= 0 \\
-	\grad{g(x_0)} &= ( 0 , 2\sqrt{5})\\
-	\grad{g(x_0)}  \cdot  f(x_0) &= 10 \sqrt{5} > 0 \rightarrow f(x_0) \notin T_k(x_0) 
-\end{align*}
-Abbiamo quindi dimostrato che K non è un viability domain per f  , allora k non potrà essere locally viable sotto f . \\
-
-
-	Proviamo ora a prendere lo stesso insieme K ma il campo vettoriale $f(x,y)= (-x , -y^3)$ . Vediamo se questo campo vettoriale rispetto la condizione di appartenenza al Cono tangente 
+	\end{figure}
+	
+	Indeed, evaluating this at the boundary point $x_0 = (0, \sqrt{5})$:
 	\begin{align*}
-		\grad{g(x)} f(x) &= (2x , 2y)(-x , -y^3) ^T \\
-		&= -2x^2 -2y^4 \leq 0 \forall (x,y ) \in \R^2 
+		f(x_0) &= (0, 5) \\
+		g(x_0) &= 0 \\
+		\nabla g(x_0) &= (0, 2\sqrt{5}) \\
+		\nabla g(x_0) \cdot f(x_0) &= 10\sqrt{5} > 0 \implies f(x_0) \notin T_K(x_0) 
 	\end{align*}
-	Abbiamo quindi dimostrato che $f(x)\in T_k(x) \forall x \in K $ , quindi K è un viability domain per f e per il teorema d Nagumo K è locally viable sotto f  
-		\begin{figure}[h]
+	We have thus shown that $K$ is not a viability domain for $f$, meaning $K$ cannot be locally viable under $f$. \\
+	
+	Now, consider the same set $K$ but with the vector field $f(x,y) = (-x, -y^3)$. Let us check if this vector field satisfies the condition for belonging to the tangent cone:
+	\begin{align*}
+		\nabla g(x) \cdot f(x) &= (2x, 2y) \cdot (-x, -y^3)^T \\
+		&= -2x^2 - 2y^4 \leq 0 \quad \forall (x,y) \in \R^2 
+	\end{align*}
+	We have therefore shown that $f(x) \in T_K(x)$ for all $x \in K$. Thus, $K$ is a viability domain for $f$, and by Nagumo's Theorem, $K$ is locally viable under $f$.
+	
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\linewidth]{immagini/circonferenza_1}
-		\caption{Esempio \ref{es:1.2} (b)  }
+		\caption{Example \ref{es:1.2} (b)}
 		\label{fig:circonferenza_1} 
-	\end{figure}\\
-	\end{es}
+	\end{figure}
+\end{es}
+
 \begin{teo}{Viability}{}
-	Consideriamo un sottoinsieme K di uno spazio finito dimensionale X e una mappa continua  $f : K \rightarrow X$. \\ Se K è un viability domain , allora per ogni condizione iniziale $x_0\in K $ esiste un T positivo e una soluzione viable su $[0,T]$ per l'equazione differenziale \ref{diff:1} con C.I $x_0$ tale che 
+	Let us consider a closed subset K  of a finite dimensional vector-space X and a continuous map   $f : K \rightarrow X$. \\ If K is a viability domain , then for every initial state $x_0\in K $ there exists a positive T and a viable solution on $[0,T]$ to the differential equation \ref{diff:1} starting at  $x_0$ such that
 	$$\begin{cases}
 		T= + \infty  \\ 
-		T < +\infty \ \ \ \  e \ \ \ \  \limsup_{t\rightarrow T_-} \norm{x(t)}= \infty 
+		T < +\infty \ \ \ \  and \ \ \ \  \limsup_{t\rightarrow T_-} \norm{x(t)}= \infty 
 	\end{cases}$$
 \end{teo}
-Se abbiamo a disposizioni ulteriori informazioni sulla funzione $f$ potremmo escludere a priori il caso in cui $\lim_{ t \rightarrow T^-} \norm{x(t)}= \infty$.
+Further adequate information - a priori estimates on the growth of $f$  - allows us to exclude the case when  $\lim_{ t \rightarrow T^-} \norm{x(t)}= \infty$.
 \begin{teo}{}{}
-	Consideriamo un sottoinsieme K di uno spazio vettoriale finito dimensionale X e una mappa $f : K \rightarrow X$. Supponiamo che $f$ sia continua , che 
+	Let us consider a subset of K of a finite dimensional vector-space X and a map $f$ form K to X . We assume that the map $f$ is continuous from K to  X , that 
 	$$\exists c > 0 \ t.c \ \forall x \in K \ , \ \norm{f(x)} \leq c (\norm{x}+1)$$
-	e che K sia un viability domani chiuso per f . Allora K è viable sotto f e $T= \infty $
+	and that K is a closed viability domain of f . \\ Then K is viable under $f$ : for every initial state $x_0 \in K $ , there exists a viable solution on $[0 ,\infty] $ to the differential equation \ref{diff:1} at $x_0$
 \end{teo}

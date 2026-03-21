@@ -8,6 +8,9 @@ clc
 g = @(x) eye(2) ; 
 h =@(x ,xO  , pO) norm(x - xO,2) - pO ;
 gradh =@(x ,xO) (x-xO)/norm(x-xO,2) ; 
+%h =@(x ,xO  , pO)  (x(1)-xO(1))^2+(x(2)-xO(2))^2-pO^2;
+%gradh = @(x ,xO) [2*(x(1)-xO(1)) ; 2*(x(2)-xO(2)) ];
+
 
 % Initial and final points
 p0 = [0,0]';
@@ -29,7 +32,7 @@ goal_tol = 0.05;
 K = 2;  % control gain
 alpha_values = [ 0.5 , 1 , 2 , 20 ,100 ] ; 
 
-figure(1)
+fig_norm = figure(1) ; 
 
 counter = 1 ; 
 
@@ -55,7 +58,7 @@ for i = 1:length(alpha_values)
         phi =  gradh(x,pO)' * u_des + alpha * h(x,pO,r1) ;
       
         if (phi < 0)
-             u_safe = - (g(x) * gradh(x,pO))/(norm(g(x)*gradh(x,xO))) * phi  ;
+             u_safe = - (g(x) * gradh(x,pO))/(norm(g(x)*gradh(x,pO)))^2 * phi  ;
              u = u_safe + u_des ; 
         else
             u = u_des ; 
@@ -116,11 +119,12 @@ for i=1:length(alpha_values)
 legend_alpha{i} = sprintf ("alpha = %0.1f " , alpha_values(i)); 
 end
 
-legend ("Starting Point","Goal Point" , "Obstacle "  , "Desired trjectory", legend_alpha{:} ,  'Location','northwest')
+legend ("Starting Point","Goal Point" , "Obstacle "  , "Desired trajectory", legend_alpha{:} ,  'Location','northwest')
 axis equal ; 
 xlabel("X[m]");
 ylabel("Y[m") ; 
 
+saveas(fig_norm,'~/Tesi/immagini/norm_cbf','png')
 
 
 
@@ -245,7 +249,7 @@ for i= 1: length(rho_values)
 legend_rho{i} =  sprintf("rho = %0.1f" , rho_values(i)) ; 
 end
 
-legend ("Starting Point","Goal Point" , "Obstacle "  , "Desired trjectory", legend_rho{:},  'Location','northwest')
+legend ("Starting Point","Goal Point" , "Obstacle "  , "Desired trajectory", legend_rho{:},  'Location','northwest')
 axis equal ;
 xlabel("X[m]");
 ylabel("Y[m") ; 
@@ -259,14 +263,14 @@ ylabel("Y[m") ;
  u_des = K*(pg-x);  % desired input
  phi =  gradh(x,pO)' * u_des + alpha * h(x,pO,r1) ;
   if (phi < 0)
-         u_safe = - (g(0) * gradh(x,pO))/(norm(g(0)*gradh(x,xO))) * phi  ;    
+         u_safe = - (g(0) * gradh(x,pO))/(norm(g(0)*gradh(x,pO))) * phi  ;    
   else
         u_safe=[0;0] ;       
   end
   u= u_safe + u_des ;
   gradients = gradh(x,pO);
  
- figure(3)
+ fig_u = figure(3) ; 
  hold on ; 
 
  quiver(2 , 2 , u_des(1) , u_des(2) ,0, 'LineWidth',1.5)
@@ -274,8 +278,9 @@ ylabel("Y[m") ;
  quiver(2 , 2 , u(1) , u(2) , 0,'LineWidth',1.5 )
  quiver(2 , 2 ,gradients(1) , gradients(2),0, 'LineWidth',1.5)
  fill(xO,yO,'k', 'Facealpha' , 0.5)
- legend("u desired" , "u safe" , "u" , "\nabla h")
+ legend("u nominal" , "u safe" , "u^*" , "\nabla h")
  xlabel("X[m]") 
  ylabel("Y[m]")
  axis equal 
  hold off;
+ saveas(fig_u ,"~/Tesi/immagini/u_star","png")

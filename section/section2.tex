@@ -1,13 +1,16 @@
-\chapter{Control Barrier Function}
+\section{cbf}
 
 Le control barrier function traggono ispirazione dalle control Lyapunov function , che rappresentano l'estensione al controllo delle funzioni di Lyapunov . Allo stesso modo le CBF sono l'estensione al controllo della funzioni di barriera , utilizzate in ottimizzazione.  Lo scopo principale delle CBF è definire un sottoinsieme  invariante in avanti , ossia un insieme per cui ogni traiettoria che parte da esso rimane al suo interno per ogni tempo futuro . Inoltre sono molto utili nella sintesi di controllori che ci permettono di rimanere nel sottoinsieme. \\
-Consideriamo il sistema dinamico non lineare affine al controllo 
+Consideriamo il sistema dinamico non lineare affine al controllo \\
+
+Control barrier function are inspired by the control Lyapunov function , which are the extension to control theory  of the Lyapunov function. In the same way CBF are the extension to contro theory  of the barrier function , used in optimization . The main objective of CBF is to define a forward invariant subset , a subset for which every trajectory that start in the subset is confined in there for all future times . CBF are really useful in the synthesis of controls that let us stay in the foward invariant subset .  \\
+Let us consider the non-linear control affine system 
 \begin{equation}
 	\label{eq:2.2.1}
 	\dot{x} = f(x) + g(x) u 
 \end{equation}
-dove $x \in \R^n \ , \ iu \in \R^m$ sono rispettivamente lo stato e l'input del sistema . Le funzioni $f : \R^n \rightarrow \R^n$ e $g : \R^n \rightarrow \R^{n \times m}$ sono localmente liptschiziane . \\
-Consideriamo il sottoinsieme $S$  , definito come l'insieme di sopralivello di una funzione $h : \R^n \rightarrow \R$ : 
+where $x \in \R^n \ , \ u \in \R^m$ are  respectively  the state  and the input of the system. The function  $f : \R^n \rightarrow \R^n$ e $g : \R^n \rightarrow \R^{n \times m}$ are locally Lipschitz  . \\
+Let us consider the set   $S$  , defined  as the  superlevel set  of a continuously differentiable function $h : \R^n \rightarrow \R$ : 
 \begin{align}
 	\label{eq:2.2.2}
  	S &= \{ x \in \R^n | h(x) \geq 0 \} \\
@@ -16,14 +19,26 @@ Consideriamo il sottoinsieme $S$  , definito come l'insieme di sopralivello di u
 	\partial S & = \{x \in \R^n \ | \ h(x)=0\}
 \end{align}
 \begin{definizione}
-La funzione $h \in \C^1 , h : \R^n \rightarrow \R$ è una control barrier function , per il sistema \ref{eq:2.2.1} , sull'insieme S , definito da \ref{eq:2.2.2} - \ref{eq:2.2.3} , se esiste una funzione classe $\kappa_{\infty}$ estesa
-\footnote{Per $a \in R^+$ , una funzione continua $\alpha : [0 ,a ) \rightarrow \R$ è una funzione di classe $\kappa$ se è strettamente crescente e $\alpha(0)=0$. Una funzione continua $\alpha : (-b ,a ) \rightarrow \R , \ \ \ a , b \in \R^+$  è una funzione di classe $\kappa$ estesa se è strettamente crescente e $\alpha(0)=0$. Inoltre , se $a = b = \infty$ e $\lim_{r \rightarrow \infty } \alpha(r)= \infty $ , allora viene chiamata funzione di classe $\kappa_{\infty} $ estesa }tale che : 
+The set $S$ is forward invariant if for every $x_0 \in S , x(t) \in S $ for $x(0)=x_0$ and all $t in I(x_0)$. The system \ref{eq:2.2.1} is safe with respect to the set $S$ if $S$ is foward invariant  
+\end{definizione}
+\begin{definizione}
+The $h \in \C^1 , h : \R^n \rightarrow \R$ is control barrier function , for th system  \ref{eq:2.2.1} , on the set  S , defined by \ref{eq:2.2.2} - \ref{eq:2.2.3} , if  there exists an extended class  $\kappa_{\infty}$ function $\alpha$  
+%\footnote{Per $a \in R^+$ , una funzione continua $\alpha : [0 ,a ) \rightarrow \R$ è una funzione di classe $\kappa$ se è strettamente crescente e $\alpha(0)=0$. Una funzione continua $\alpha : (-b ,a ) \rightarrow \R , \ \ \ a , b \in \R^+$  è una funzione di classe $\kappa$ estesa se è strettamente crescente e $\alpha(0)=0$. Inoltre , se $a = b = \infty$ e $\lim_{r \rightarrow \infty } \alpha(r)= \infty $ , allora viene chiamata funzione di classe $\kappa_{\infty} $ estesa } 
+\footnote{For $a \in \R^+$, a continuous function $\alpha: [0, a) \rightarrow \R$ is a class $\kappa$ function if it is strictly increasing and $\alpha(0) = 0$. A continuous function $\alpha: (-b, a) \rightarrow \R$, with $a, b \in \R^+$, is an extended class $\kappa$ function if it is strictly increasing and $\alpha(0) = 0$. Furthermore, if $a = b = \infty$ and $\lim_{r \rightarrow \infty} \alpha(r) = \infty$, then it is called an extended class $\kappa_\infty$ function.}
+such that : 
 \begin{align}
 	\sup_{u \in \R^m} &[L_f h(x) + L_g h(x) u \geq - \alpha (h(x))]  \ \   \forall x \in S \notag  \\ 
-	\sup_{u \in \R^m} &[\grad{h(x)}^T f(x) + \grad{h(x)}^T g(x) u \geq - \alpha (h(x))]\ \ \   \forall x \in S  \label{eq:2.5}
+	\sup_{u \in \R^m} &[\grad{h(x)} \cdot f(x) + \grad{h(x)}^T  g(x) u \geq - \alpha (h(x))]\ \ \   \forall x \in S  \label{eq:2.5}
 \end{align}
+where 
+\[L_g h = \begin{bmatrix}
+	L_{g_1} h \\
+	L_{g_2} h \\
+	\vdots 
+	L_{g_m} h 
+\end{bmatrix}^T\] so $g_i$ is the i column of g 
  \end{definizione}
- Consideriamo ora l'insieme di tutti i valori di input che rendono il sottoinsieme S invariante : 
+ Let us consider the set of all the control that render the set $S$ forward invariant :
  $$K_{cbf}(u)= \{u \in \R^m \ | \ L_f h(x) + L_g h(x) u \geq - \alpha (h(x)) \}$$
  \begin{teo}{}{}
  	Sia $S \subseteq \R^n$ l'insieme di sopralivello di una funzione differenziabile continuità $h:D \subset  \R^n \rightarrow \R $ , se h è una control barrier function su D e $\grad{h(x)} \neq 0 \ \ \forall x \in \partial S  $ , allora un qualsiasi controllore liptschiziano u tale che $u(x) \in K_{cbf}$ per il sistema \ref{eq:2.2.1} rende S invariante (in avanti)
@@ -51,21 +66,72 @@ L_f h(x) + L_g h(x) u  \geq 0
  &	s.t \ \ \ [L_f h(x) + L_g h(x) u \geq - \alpha (h(x))
  \end{align*}
  Per questo problema esiste una soluzione $u^*$ in forma chiusa : 
- \[u^*  = u_{safe} + u_{des}\] dove 
- \[u_{safe} = \begin{cases}
- 	\frac{\Phi ( x , t , u_{des})}{L_gh(x)L_gh(x)^T} L_gh(x)^T   \ \ \ \ \ \Phi < 0 \\
+ \begin{equation}
+u^*  = u_{safe} + u_{nom}
+\label{eq_star}
+ \end{equation} dove 
+ \begin{equation}
+ u_{safe} = \begin{cases}
+ 	- \frac{\Phi ( x , t , u_{des})}{L_gh(x)L_gh(x)^T} L_gh(x)^T   \ \ \ \ \ \Phi < 0 \\
  	0 \ \ \ \ \ \ \ \Phi \geq  0 
- \end{cases}\]
+ \end{cases} 
+ \label{eq_safe}
+ \end{equation}
  con 
- \[\Phi ( x , t , u_{des}) \triangleq \grad{h(x)}^T f(x) + \grad{h(x)}^T g(x) u  +\alpha (h(x)) \]
- Presentiamo ora un esempio di applicazione delle CBF : 
+ 
+ \begin{equation}
+\Phi ( x , t , u_{des}) \triangleq \grad{h(x)}^T f(x) + \grad{h(x)}^T g(x) u  +\alpha (h(x))
+\label{eq_phi}
+ \end{equation}
+We now show an example of the usage of CBF
  \begin{es}
- 	Vogliamo che un punto materiale si sposti da una posizione iniziale $x_0 \in \R^2$ fino ad un obbiettivo con posizione $x_g \in R^2 $ , evitando un ostacolo ostacolo , modellizzato tramite una circonferenza di centro $x_{obs}$ e raggio $r_{obs}$. \\ Iniziamo introducendo la CBF : 
- 	\[h(x) = \norm{x-x_g} - r_{obs}\]
+ 	We want to move a material point from an initial position $q_0 \in \R^2$ to a target position $q_g \in \R^2$ while avoiding a spherical obstacle , with center $q_{obs} \in \R^2 $ and radius $r_{obs}$ . The system is a single integrator : 
+ 	\[ \dot{q}(t) = u(t) \]
+ 	then $f(q) = 0 $ , $g(q) =
+ 	 \begin{bmatrix}
+ 		1 & 0 \\
+ 		0 & 1 
+ 	\end{bmatrix}$ and $ u(t) = \begin{bmatrix}
+ 	u_1(t) \\
+ 	u_2(t)
+ 	\end{bmatrix} $ \\
+ 	We start by introducing the control barrier function
+ 	\[h(x) = \norm{q-q_{obs}} - r_{obs}\] which defines the set 
+
+\begin{align*}
+S &= \{q \in R^2\ |\  \norm{q-q_g} - r_{obs}  \geq 0 \}  \\
+& =  \{q \in R^2\ |\  \sqrt{(x-x_{obs})^2+(y-y_{obs})^2} \geq  r_{obs}  \}  
+\end{align*}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7 \linewidth]{immagini/example_cbf}
+	\caption{The set S}
+\end{figure}
  \end{es}
- 
- 
- \subsection{Pendolo Inverso}
+ We have out nominal control which is 
+ $$u_{nom} =  K * \frac{q_g - q}{||q_g-q||} \quad  K \in \R_{>0}$$
+by using equation \ref{eq_phi} and using a constant $\alpha \in \R_{>0}$ as the $\kappa_{\infty}$ function we obtain : 
+\begin{align*}
+	\nabla h &= 
+	\begin{bmatrix}
+		\frac{x}{(\sqrt{x-x_{obs})^2+(y-y_{obs})^2}} \\
+		\frac{t}{\sqrt{(x-x_{obs})^2+(y-y_{obs})^2}}
+	\end{bmatrix} \\
+	L_g h &= \nabla h ^T \\
+	L_gh L_gh^T &=  \frac{x^2+y^2}{(x-x_{obs})^2+(y-y_{obs})^2}\\
+	\Phi &=  \frac{x}{(\sqrt{x-x_{obs})^2+(y-y_{obs})^2}} u_1 + \frac{y}{(\sqrt{x-x_{obs})^2+(y-y_{obs})^2}} u_2 + \alpha ( \norm{q-q_{obs}} - r_{obs})
+\end{align*}
+and now we have $u_{safe}$ and by adding out $u_{nom}$ we can create our controller that achieves obstacle avoidance while going toward the goal . 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{immagini/norm_cbf.png}
+\end{figure}\\
+In the next figure we will see how every component ($u^*,u_{safe},u_{nom},\grad{h}$) is for the point $q=(2 , 2) $ 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{immagini/u_star.png}
+\end{figure} 
+ \subsection{Limbo Problem}
   Equazioni del moto 
  \[
  \begin{cases}

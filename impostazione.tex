@@ -10,6 +10,7 @@
 \numberwithin{equation}{section}
 \usepackage[english,italian]{babel}
 \usepackage{url}
+\usepackage{frontespizio}
 \usepackage{geometry}
 \geometry{a4paper,top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,%
 	heightrounded,bindingoffset=5mm}
@@ -20,7 +21,7 @@
 \usepackage{hyperref}
 \hypersetup{
 	colorlinks=true,
-	linkcolor=pink,
+	linkcolor=blue,
 	filecolor=magenta,      
 	urlcolor=blue,
 	pdftitle={Tesi},
@@ -44,7 +45,8 @@
 \newtheorem{prop}{Proposizione}[section]
 \newtheorem{es}{Esempio}[section]
 \newtheorem{lemma}{Lemma}[section]
-\newtcbtheorem[number within=section]{teo}{Theorem}{colback=LightCyan1!40 ,colframe=RoyalBlue1!100,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
+%\newtcbtheorem[number within=section]{teo}{Theorem}{colback=LightCyan1!40 ,colframe=RoyalBlue1!100,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
+\newtcbtheorem[number within=section]{teo}{Theorem}{colback=white ,colframe=black,sharp corners,separator sign dash,fonttitle=\bfseries}{thm}
 \newtcbtheorem[number within=section]{teo1}{}{colback=black!5 ,colframe=Burlywood4!80 }{thm}
 
 
