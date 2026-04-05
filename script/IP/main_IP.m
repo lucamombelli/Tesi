@@ -194,7 +194,7 @@ plot_IP(tout, xout, u_out, u_max, u_min, xg, theta_crit, sys_par, obs)
 %phase_portrait(xout_rk)
 %}
 %% Pendulum animation
-sim = 0;
+sim = 1;
 if(sim == 1)
     fig_anim = figure('Name','Pendulum Animation','NumberTitle','off', ...
                   'Position',[100,100,800,600]);

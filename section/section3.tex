@@ -139,8 +139,8 @@ Now we define the safe set as
 $S = {S_1 \cap S_2 
 }$ where 
 \begin{align*}
-	S_1 &= \{z \in R^4 \ | \ h_0(z) \geq 0 \} \\
-	& = \{z \in R^4 \ | \   x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) ) \geq \epsilon^2 \} \\
+	S_1 &= \{z \in \R^4 \ | \ h_0(z) \geq 0 \} \\
+	& = \{z \in \R^4 \ | \   x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) ) \geq \epsilon^2 \} \\
 \end{align*}
 \begin{figure}[h]
 	\centering 
@@ -149,10 +149,10 @@ $S = {S_1 \cap S_2
 \end{figure}
 \begin{align*}
   S_2 &= \{z \in R^4 \ | \ h_1(z) \geq 0 \} \\ 
-   & = \{ z \in R^4 \ | \  v_x(2x - 2l sin(\te) -2 d_x) - 2 v_{\te} (x l \cos(\te) - d_x l \cos(\te) - dy l \sin(\te)) + \\ &+ k_1 ( x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) )) \geq \epsilon^2\}
+   & = \{ z \in R^4 \ | \  v_x(2x - 2l sin(\te) -2 d_x) - 2 v_{\te} (x l \cos(\te) - d_x l \cos(\te) - d_y l \sin(\te)) + \\ &+ k_1 ( x^2 + l^2 + d_x^2 + d_y ^2  - 2 ( xl\sin(\te) + x d_x - d_x l\sin(\te) +   d_y l \cos(\te) )) \geq k_1\epsilon^2\}
 \end{align*}
 
-We also have definied another control barrier function 
+We also have defined another control barrier function 
 $b_0(z) = \te_{cri}^2 - \theta ^ 2 $  . We need to compute the gradient and the term $dot(b_0) $in this case 
 \begin{align*}
 	\nabla b_0 &= 
