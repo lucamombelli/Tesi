@@ -15,8 +15,18 @@ function [sysfunStruct,state,sym_par,sys_par] = system_dynamics()
     
     % State vector & parameters
     sym_par = [M, m, l, g, mu_d];
-    sys_par = [1, 0.1, 1, 9.81, 0.1];
+    sys_par = [1, 0.01, 1, 9.81, 0];
+    %m = Mass of the pendulum [kg]
+    %M = Mass of the cart [kg]
+    %l = Length of the Pendulum [m]
+    %g = gravity accelleration, [m/s^2]
+    
     state = [x1, x2, x3, x4].';
+     
+    % x1 = Position of the center of the cart
+    % x2 = Angle of the Pendulum
+    % x3 = Velocities of the center of the cart
+    % x4 = Angular velocities
 
     % Dynamics
     A_mat = [1, 0, 0, 0;
@@ -105,9 +115,8 @@ function [cbfObsStruct,cbfThetaStruct] = control_barrier_functions(state,obstacl
 end
 
 %% Obstacle 
-% d = 1 works with gamma_1 = gamma_2 = 8-25 and epsilon = 0.1 - 0.49
-% d = 0.9 works with gamma_1 = gamma_2 = 10-   and epsilon = 
 obs.height = 1; % height
+obs.x_coord = 0;
 obs.radius = 10^(-1); % radius
 
 %% System dynamics 
@@ -137,7 +146,7 @@ R = 1.0;
 %% CBFs - obstacle and critic angle
 theta_crit = pi/2;  % do be estimated
 alpha_1 = 60;  % class-K function (slope of a straight line)
-gamma_1 = 60;  % class-K function (slope of a straight line)
+gamma_1 = 50;  % class-K function (slope of a straight line)
 
 [cbfObsStruct,cbfThetaStruct] = control_barrier_functions(state,obs,sym_par,sys_par,alpha_1,gamma_1,theta_crit,sysfunStruct);
 
@@ -147,14 +156,14 @@ b1_fun = cbfThetaStruct.theta_cons;  % constraint function (critic theta)
 grad_b1_fun = cbfThetaStruct.theta_cons_gradient;  % constraint gradient (critic theta)
 
 %% Simulation loop
-x0 = -3;  % initial cart position
-xg = 4;  % target cart position
+x0 = -2;  % initial cart position
+xg = 2;  % target cart position
 X0 = [x0, 0, 0, 0]';  % initial state
 Tf = 8;  % final time [s]
 
 % Parameters of SO-CBFs
 alpha_2 = 60; % class-K function (slope of a straight line)
-gamma_2 = 60 ; % (lower bound = 8) class-K function (slope of a straight line)
+gamma_2 = 50 ; % class-K function (slope of a straight line)
 [tout_rk,xout_rk,u_out_rk] = IP_simulation_rk(X0, f_fun, g_fun, b1_fun, grad_b1_fun, ...
                                   h1_fun, grad_h1_fun, gamma_2, alpha_2, u_min, u_max, K_lqr, xg, Tf);
 
@@ -194,7 +203,7 @@ plot_IP(tout, xout, u_out, u_max, u_min, xg, theta_crit, sys_par, obs)
 %phase_portrait(xout_rk)
 %}
 %% Pendulum animation
-sim = 1;
+sim = 0;
 if(sim == 1)
     fig_anim = figure('Name','Pendulum Animation','NumberTitle','off', ...
                   'Position',[100,100,800,600]);
@@ -211,8 +220,6 @@ if(sim == 1)
         pause(0.01);
     end
 end
-
-plot_safe_set(sys_par, obs, xg, X0)
 
 
 
